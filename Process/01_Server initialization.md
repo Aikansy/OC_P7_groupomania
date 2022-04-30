@@ -8,6 +8,8 @@
     > "npm install --save sequelize"
     > "npm install --save mysql2"
     > "npm install --save dotenv"
+    > "npm install --save cors"
+    > "npm install --save helmet"
 
 ## back file(s)/folder(s) creation
 
@@ -18,7 +20,7 @@ back:
     > "mkdir app"
     > "mkdir config"
     > (app) "touch app.js"
-    > (config) "touch .env"
+    > (config) "touch config.env"
 
 ## Configure the server
 
@@ -84,30 +86,51 @@ back/app/app.js:
 
 ```javascript
 const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
 const app = express();
+require("dotenv").config({ path: "./config/.env" });
 
-app.use((req, res) => {
-  res.json({
-    message: "Server is ready !",
-  });
+app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(helmet.permittedCrossDomainPolicies());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
+
+app.get("/", function (req, res, next) {
+  res.status(200).send("<h1>Bienvenue sur le réseau social Groupomonia !</h1>");
+  next();
 });
 
 module.exports = app;
 ```
 
-## Fill .gitignore & .env
+## Fill .gitignore & config.env
 
 back/.gitignore:
 
 ```
 node_modules
-/config/.env
+/config/config.env
 ```
 
-back/config/.env:
+back/config/config.env:
 
 ```
 PORT=<port>
+CLIENT_URL=<url>
 ```
 
 ## Check the server
@@ -118,4 +141,4 @@ PORT=<port>
 
 GET http://localhost:3000/
 
-> expects "Server is ready !"
+> expects "Bienvenue sur le réseau social Groupomonia !"
