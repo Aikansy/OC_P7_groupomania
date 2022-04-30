@@ -5,6 +5,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const db = require("../models");
+const userRoutes = require("../routes/user_routes");
+const postRoutes = require("../routes/post_routes");
 require("dotenv").config({ path: "./config/config.env" });
 
 // ******************************************************************************* APP (APPLICATION)
@@ -38,6 +40,9 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 // ******************************************************************************** ROUTE HANDLER(S)
+
+app.use("/api/auth", userRoutes);
+app.use("/api/post", postRoutes);
 
 // *************************************************************************************** EXPORT(S)
 

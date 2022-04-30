@@ -36,7 +36,7 @@ Enter:
 CREATE DATABASE groupomania;
 ```
 
-    > expects;
+expects;
 
 ```sql
 Query OK, 1 row affected (0.01 sec)
@@ -48,7 +48,7 @@ Step 3: Select DB
 USE groupomania;
 ```
 
-    > expects:
+expects:
 
 ```sql
 Database changed
