@@ -38,7 +38,6 @@ router.post("/signin", userControllers.signin);
 
 router.get("/", userControllers.findAllUser);
 router.get("/:id", userControllers.findOneUser);
-router.post("/", userControllers.createUser);
 router.put("/:id", userControllers.updateUser);
 router.delete("/:id", userControllers.deleteUser);
 
@@ -85,8 +84,6 @@ exports.signin = async (req, res, next) => {};
 exports.findAllUser = async (req, res, next) => {};
 
 exports.findOneUser = async (req, res, next) => {};
-
-exports.createUser = async (req, res, next) => {};
 
 exports.updateUser = async (req, res, next) => {};
 

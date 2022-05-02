@@ -14,8 +14,6 @@ exports.findAllUser = async (req, res, next) => {};
 
 exports.findOneUser = async (req, res, next) => {};
 
-exports.createUser = async (req, res, next) => {};
-
 exports.updateUser = async (req, res, next) => {};
 
 exports.deleteUser = async (req, res, next) => {};

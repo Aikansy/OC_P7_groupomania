@@ -10,6 +10,7 @@
     > "npm install --save dotenv"
     > "npm install --save cors"
     > "npm install --save helmet"
+    > "npm install --save jsonwebtoken"
 
 ## back file(s)/folder(s) creation
 

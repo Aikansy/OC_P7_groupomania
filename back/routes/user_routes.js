@@ -2,20 +2,20 @@
 
 const router = require("express").Router();
 const userControllers = require("../controllers/user_controllers");
+const auth = require("../middlewares/auth");
 
 // **************************************************************************************** ROUTE(S)
 
 router.post("/signup", userControllers.signup);
 router.post("/signin", userControllers.signin);
 
-router.get("/", userControllers.findAllUser);
-router.get("/:id", userControllers.findOneUser);
-router.post("/", userControllers.createUser);
-router.put("/:id", userControllers.updateUser);
-router.delete("/:id", userControllers.deleteUser);
+router.get("/", auth, userControllers.findAllUser);
+router.get("/:id", auth, userControllers.findOneUser);
+router.put("/:id", auth, userControllers.updateUser);
+router.delete("/:id", auth, userControllers.deleteUser);
 
-router.patch("/:id/follow", userControllers.followUser);
-router.patch("/:id/unfollow", userControllers.unfollowUser);
+router.patch("/:id/follow", auth, userControllers.followUser);
+router.patch("/:id/unfollow", auth, userControllers.unfollowUser);
 
 // *************************************************************************************** EXPORT(S)
 
