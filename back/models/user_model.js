@@ -8,6 +8,14 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
+    token: {
+      type: Sequelize.STRING,
+      defaultValue: "null",
+    },
+    nickname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -20,10 +28,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING(100),
       allowNull: false,
     },
-    nickname: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     imgUrl: {
       type: Sequelize.STRING,
       defaultValue:
@@ -33,23 +37,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       defaultValue: "No Description",
     },
-    followers: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
-    following: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
-    postLiked: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
     postCreated: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
-    commentCreated: {
       type: Sequelize.JSON,
       defaultValue: {},
     },

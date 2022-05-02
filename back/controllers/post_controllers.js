@@ -2,7 +2,7 @@
 
 const db = require("../models/index");
 const User = db.user;
-const Post = db.posts;
+const Post = db.post;
 
 // *********************************************************************************** CONTROLLER(S)
 

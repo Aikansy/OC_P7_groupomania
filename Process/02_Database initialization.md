@@ -84,7 +84,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.user = require("./user_model")(sequelize, Sequelize);
-db.posts = require("./post_model")(sequelize, Sequelize);
+db.post = require("./post_model")(sequelize, Sequelize);
 
 try {
   sequelize.authenticate();

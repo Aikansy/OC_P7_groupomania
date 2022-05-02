@@ -1,14 +1,12 @@
-// *************************************************************************************** IMPORT(S)
+# 06 - User controllers update
 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const db = require("../models/index");
-require("dotenv").config({ path: "../back/config/config.env" });
-const User = db.user;
-const Post = db.post;
+## User controllers
 
-// *********************************************************************************** CONTROLLER(S)
+back/controllers/user_controllers.js:
 
+#### SIGNUP controller
+
+```javascript
 exports.signup = async (req, res, next) => {
   if (!req.body.nickname)
     return res.status(400).json({ message: "Pseudo is required !" });
@@ -86,7 +84,11 @@ exports.signup = async (req, res, next) => {
       .catch((error) => res.status(500).json({ error }));
   }
 };
+```
 
+#### SIGNIN controller
+
+```javascript
 exports.signin = async (req, res, next) => {
   if (!req.body.email)
     return res.status(400).json({ message: "Email is required !" });
@@ -125,7 +127,11 @@ exports.signin = async (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+```
 
+#### FINDALLUSER controller
+
+```javascript
 exports.findAllUser = async (req, res, next) => {
   await User.findAll({
     attributes: { exclude: ["token", "email", "password", "role"] },
@@ -133,7 +139,11 @@ exports.findAllUser = async (req, res, next) => {
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(404).json({ error }));
 };
+```
 
+#### FINDONEUSER controller
+
+```javascript
 exports.findOneUser = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -162,7 +172,11 @@ exports.findOneUser = async (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   }
 };
+```
 
+#### UPDATEUSER controller
+
+```javascript
 exports.updateUser = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -204,7 +218,11 @@ exports.updateUser = async (req, res, next) => {
     });
   }
 };
+```
 
+#### DELETEUSER controller
+
+```javascript
 exports.deleteUser = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -231,3 +249,12 @@ exports.deleteUser = async (req, res, next) => {
     });
   }
 };
+```
+
+## Update config.env
+
+back/config/config.env:
+
+```
+ROLE_TOKEN=<role token>
+```

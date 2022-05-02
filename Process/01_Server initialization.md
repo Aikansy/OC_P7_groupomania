@@ -11,6 +11,7 @@
     > "npm install --save cors"
     > "npm install --save helmet"
     > "npm install --save jsonwebtoken"
+    > "npm install --save bcrypt"
 
 ## back file(s)/folder(s) creation
 

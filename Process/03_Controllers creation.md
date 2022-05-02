@@ -73,9 +73,12 @@ module.exports = router;
 back/controllers/user_controllers.js:
 
 ```javascript
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const db = require("../models/index");
+require("dotenv").config({ path: "../back/config/config.env" });
 const User = db.user;
-const Post = db.posts;
+const Post = db.post;
 
 exports.signup = async (req, res, next) => {};
 
@@ -99,7 +102,7 @@ back/controllers/post_controllers.js:
 ```javascript
 const db = require("../models/index");
 const User = db.user;
-const Post = db.posts;
+const Post = db.post;
 
 exports.findAllPost = async (req, res, next) => {};
 

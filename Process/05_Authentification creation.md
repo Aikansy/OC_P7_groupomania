@@ -19,9 +19,9 @@ require("dotenv").config({ path: "../back/config/config.env" });
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
-    const userId = decodedToken.user_id;
+    const userId = decodedToken.userId;
     const user = await User.findOne({
       where: {
         _id: userId,
