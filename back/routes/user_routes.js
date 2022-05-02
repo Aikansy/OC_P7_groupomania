@@ -14,8 +14,8 @@ router.post("/", userControllers.createUser);
 router.put("/:id", userControllers.updateUser);
 router.delete("/:id", userControllers.deleteUser);
 
-router.patch("/follow/:id", userControllers.followUser);
-router.patch("/unfollow/:id", userControllers.unfollowUser);
+router.patch("/:id/follow", userControllers.followUser);
+router.patch("/:id/unfollow", userControllers.unfollowUser);
 
 // *************************************************************************************** EXPORT(S)
 

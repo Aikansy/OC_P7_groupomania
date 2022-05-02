@@ -10,6 +10,8 @@ back:
     > (back/controllers) "touch post_controllers.js"
     > (back/routes) "touch user_routes.js"
     > (back/routes) "touch post_routes.js"
+    > (back/models) "touch user_model.js)
+    > (back/models) "touch post_model.js)
 
 ## Routes handlers
 
@@ -40,8 +42,8 @@ router.post("/", userControllers.createUser);
 router.put("/:id", userControllers.updateUser);
 router.delete("/:id", userControllers.deleteUser);
 
-router.patch("/follow/:id", userControllers.followUser);
-router.patch("/unfollow/:id", userControllers.unfollowUser);
+router.patch("/:id/follow", userControllers.followUser);
+router.patch("/:id/unfollow", userControllers.unfollowUser);
 
 module.exports = router;
 ```
@@ -58,11 +60,11 @@ router.post("/", postControllers.createPost);
 router.put("/:id", postControllers.updatePost);
 router.delete("/:id", postControllers.deletePost);
 
-router.patch("/like/:id", postControllers.likePost);
-router.patch("/unlike/:id", postControllers.unlikePost);
+router.patch("/:id/like", postControllers.likePost);
+router.patch("/:id/unlike", postControllers.unlikePost);
 
-router.patch("/post-comment/:id", postControllers.createCommentPost);
-router.patch("/delete-comment/:id", postControllers.deleteCommentPost);
+router.patch("/:id/comment", postControllers.createCommentPost);
+router.patch("/:id/uncomment", postControllers.deleteCommentPost);
 
 module.exports = router;
 ```
@@ -72,6 +74,10 @@ module.exports = router;
 back/controllers/user_controllers.js:
 
 ```javascript
+const db = require("../models/index");
+const User = db.user;
+const Post = db.posts;
+
 exports.signup = async (req, res, next) => {};
 
 exports.signin = async (req, res, next) => {};
@@ -94,6 +100,10 @@ exports.unfollowUser = async (req, res, next) => {};
 back/controllers/post_controllers.js:
 
 ```javascript
+const db = require("../models/index");
+const User = db.user;
+const Post = db.posts;
+
 exports.findAllPost = async (req, res, next) => {};
 
 exports.FindOnePost = async (req, res, next) => {};
@@ -111,4 +121,20 @@ exports.unlikePost = async (req, res, next) => {};
 exports.createCommentPost = async (req, res, next) => {};
 
 exports.deleteCommentPost = async (req, res, next) => {};
+```
+
+## Models
+
+back/models/user_model.js
+
+```javascript
+module.exports = (sequelize, Sequelize) => {};
+```
+
+back/models/post_model.js
+
+```javascript
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {};
 ```

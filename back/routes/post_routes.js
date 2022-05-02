@@ -11,11 +11,11 @@ router.post("/", postControllers.createPost);
 router.put("/:id", postControllers.updatePost);
 router.delete("/:id", postControllers.deletePost);
 
-router.patch("/like/:id", postControllers.likePost);
-router.patch("/unlike/:id", postControllers.unlikePost);
+router.patch("/:id/like", postControllers.likePost);
+router.patch("/:id/unlike", postControllers.unlikePost);
 
-router.patch("/post-comment/:id", postControllers.createCommentPost);
-router.patch("/delete-comment/:id", postControllers.deleteCommentPost);
+router.patch("/:id/comment", postControllers.createCommentPost);
+router.patch("/:id/uncomment", postControllers.deleteCommentPost);
 
 // *************************************************************************************** EXPORT(S)
 

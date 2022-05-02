@@ -36,7 +36,7 @@ Enter:
 CREATE DATABASE groupomania;
 ```
 
-expects;
+expects:
 
 ```sql
 Query OK, 1 row affected (0.01 sec)
@@ -54,91 +54,61 @@ expects:
 Database changed
 ```
 
-## DB file(s)/folder(s) creation
+## MySQL DB file(s)/folder(s) creation
 
 back:
 
     > (back) "mkdir models"
-    > (back/models) "index.js"
-    > (back/config) "touch db.config.js"
+    > (back/models) "touch index.js"
 
 ## Configure MySQL database & Sequelize
-
-back/config/db.config.js:
-
-```javascript
-require("dotenv").config({ path: "./config/config.env" });
-
-module.exports = {
-  HOST: process.env.DB_HOST,
-  USER: process.env.DB_USER,
-  PASSWORD: process.env.DB_PASSWORD,
-  DB: process.env.DB_NAME,
-  dialect: "mysql",
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-};
-```
-
-_pool is optional, it will be used for Sequelize connection pool configuration:_
-
-    max: maximum number of connection in pool
-    min: minimum number of connection in pool
-    acquire: maximum time, in milliseconds, that pool will try to get connection before throwing error
-    idle: maximum time, in milliseconds, that a connection can be idle before being released
-
-[API Reference for Sequelize constructor](https://sequelize.org/master/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor)
-
-## Fill .env
-
-back/config/config.env:
-
-```
-DB_NAME="name"
-DB_USER="user"
-DB_PASSWORD="password"
-DB_HOST="host"
-```
-
-## Initialize Sequelize
 
 back/models/index.js:
 
 ```javascript
-const dbConfig = require("../config/db.config.js");
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
+require("dotenv").config({ path: "../back/config/config.env" });
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: 1,
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
-  },
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    dialect: "mysql",
+    host: "localhost",
+  }
+);
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.user = require("./user_model")(sequelize, Sequelize);
+db.posts = require("./post_model")(sequelize, Sequelize);
+
+try {
+  sequelize.authenticate();
+  console.log("Successful connection to MySQL database !");
+} catch (error) {
+  console.error("Impossible to connect !", error);
+}
 
 module.exports = db;
 ```
 
-back/app/app.js:
+## Import DB
+
+back/app:app.js:
 
 ```javascript
-const db = require("../models");
+const db = require("../models/index");
 db.sequelize.sync();
 ```
 
 ## Reference(s)
 
-[bezkoder.com](https://www.bezkoder.com/node-js-express-sequelize-mysql/)
+[API Reference for Sequelize constructor](https://sequelize.org/master/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor)
+
+[MySQL DB Creation](https://practicalprogramming.fr/nodejs-mysql)
+
+[w3c School](https://www.w3schools.com/nodejs/nodejs_mysql.asp)

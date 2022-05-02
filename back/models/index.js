@@ -1,27 +1,32 @@
 // *************************************************************************************** IMPORT(S)
 
-const dbConfig = require("../config/db.config.js");
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
+require("dotenv").config({ path: "../back/config/config.env" });
 
-// ************************************************************************** CONNECTING TO MYSQL DB
+// ***************************************************************************** CONNECTING MYSQL DB
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: 1,
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
-  },
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    dialect: "mysql",
+    host: "localhost",
+  }
+);
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.user = require("./user_model")(sequelize, Sequelize);
+db.posts = require("./post_model")(sequelize, Sequelize);
 
-// *************************************************************************************** EXPORT(S)
+try {
+  sequelize.authenticate();
+  console.log("Successful connection to MySQL database !");
+} catch (error) {
+  console.error("Impossible to connect !", error);
+}
 
 module.exports = db;

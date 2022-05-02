@@ -89,7 +89,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-require("dotenv").config({ path: "./config/.env" });
+require("dotenv").config({ path: "../back/config/config.env" });
 
 app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());

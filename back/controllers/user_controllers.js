@@ -1,5 +1,9 @@
 // *************************************************************************************** IMPORT(S)
 
+const db = require("../models/index");
+const User = db.user;
+const Post = db.posts;
+
 // *********************************************************************************** CONTROLLER(S)
 
 exports.signup = async (req, res, next) => {};

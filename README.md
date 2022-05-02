@@ -1,2 +1,3 @@
-# OC_PY_MySQL
+# OC_P7_MySQL
+
 Openclassrooms - Project 7

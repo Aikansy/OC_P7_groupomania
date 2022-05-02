@@ -4,10 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const db = require("../models");
+const db = require("../models/index");
 const userRoutes = require("../routes/user_routes");
 const postRoutes = require("../routes/post_routes");
-require("dotenv").config({ path: "./config/config.env" });
+require("dotenv").config({ path: "../back/config/config.env" });
 
 // ******************************************************************************* APP (APPLICATION)
 
@@ -35,9 +35,6 @@ app.get("/", function (req, res, next) {
 });
 
 db.sequelize.sync();
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
 
 // ******************************************************************************** ROUTE HANDLER(S)
 
