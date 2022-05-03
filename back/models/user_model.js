@@ -37,10 +37,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       defaultValue: "No Description",
     },
-    postCreated: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
     role: {
       type: Sequelize.STRING,
       defaultValue: "user",

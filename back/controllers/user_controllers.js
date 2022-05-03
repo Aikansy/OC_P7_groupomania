@@ -146,7 +146,7 @@ exports.findOneUser = async (req, res, next) => {
     })
       .then((account) => res.status(200).json({ account }))
       .catch((error) => res.status(400).json({ error }));
-  } else if (user._id === req.params.id) {
+  } else if (user._id == req.params.id) {
     User.findOne({
       where: { _id: req.params.id },
       attributes: { exclude: ["token", "password", "role"] },
@@ -156,7 +156,7 @@ exports.findOneUser = async (req, res, next) => {
   } else {
     User.findOne({
       where: { _id: req.params.id },
-      attributes: { exclude: ["token", "email", "password", "role"] },
+      attributes: { exclude: ["_id", "token", "email", "password", "role"] },
     })
       .then((account) => res.status(200).json({ account }))
       .catch((error) => res.status(400).json({ error }));
@@ -169,7 +169,7 @@ exports.updateUser = async (req, res, next) => {
   const userId = decodedToken.userId;
   const user = await User.findOne({ where: { _id: userId } });
 
-  if (user.role === "admin" || userId === req.params.id) {
+  if (user.role === "admin" || user._id == req.params.id) {
     await bcrypt
       .hash(req.body.password, 10)
       .then((hash) => {
@@ -177,20 +177,17 @@ exports.updateUser = async (req, res, next) => {
 
         User.findOne({ where: { _id: req.params.id } })
           .then((account) => {
-            const data = req.body;
+            const { nickname, email, imgUrl, description } = req.body;
 
-            for (let key of Object.keys(data)) {
-              if (!data[key]) {
-                delete data[key];
-              }
+            const newData = {
+              nickname: nickname ? nickname : user.nickname,
+              email: email ? email : user.email,
+              password: newHashedPassword ? newHashedPassword : user.password,
+              imgUrl: imgUrl ? imgUrl : user.imgUrl,
+              description: description ? description : user.description,
+            };
 
-              User.update(
-                { [key]: data[key], password: newHashedPassword },
-                { where: { _id: req.params.id } }
-              );
-            }
-
-            account.save();
+            account.update(newData);
             res.status(200).json({
               message: "The account has been successfully updated !",
             });
@@ -199,9 +196,9 @@ exports.updateUser = async (req, res, next) => {
       })
       .catch((error) => res.status(500).json({ error }));
   } else {
-    return res.status(403).json({
-      message: "Unauthorized request: this is not your account !",
-    });
+    return res
+      .status(403)
+      .json({ message: "Forbidden request: this is not your account !" });
   }
 };
 
@@ -211,7 +208,7 @@ exports.deleteUser = async (req, res, next) => {
   const userId = decodedToken.userId;
   const user = await User.findOne({ where: { _id: userId } });
 
-  if (user.role === "admin" || userId === req.params.id) {
+  if (user.role === "admin" || user._id == req.params.id) {
     await User.destroy({ where: { _id: req.params.id } });
 
     await Post.findAll({ where: { creator_id: req.params.id } })
@@ -226,8 +223,8 @@ exports.deleteUser = async (req, res, next) => {
       .status(200)
       .json({ message: "The account has been successfully deleted !" });
   } else {
-    return res.status(403).json({
-      message: "Unauthorized request: this is not your account !",
-    });
+    return res
+      .status(403)
+      .json({ message: "Forbidden request: this is not your account !" });
   }
 };

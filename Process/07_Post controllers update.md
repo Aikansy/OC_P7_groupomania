@@ -1,14 +1,12 @@
-// *************************************************************************************** IMPORT(S)
+# 07 - Post controllers update
 
-const jwt = require("jsonwebtoken");
-const { comment } = require("../models/index");
-const db = require("../models/index");
-const User = db.user;
-const Post = db.post;
-const Comment = db.comment;
+## Post controllers
 
-// *********************************************************************************** CONTROLLER(S)
+back/controllers/user_controllers.js:
 
+#### FIND ALL POST controller
+
+```javascript
 exports.findAllPost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -28,7 +26,11 @@ exports.findAllPost = async (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   }
 };
+```
 
+#### FIND ONE POST controller
+
+```javascript
 exports.FindOnePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -51,7 +53,11 @@ exports.FindOnePost = async (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   }
 };
+```
 
+#### CREATE POST controller
+
+```javascript
 exports.createPost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -77,7 +83,11 @@ exports.createPost = async (req, res, next) => {
     )
     .catch((error) => res.status(400).json({ error }));
 };
+```
 
+#### UPDATE POST controller
+
+```javascript
 exports.updatePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -112,7 +122,11 @@ exports.updatePost = async (req, res, next) => {
       .json({ message: "Forbidden request: this is not your post !" });
   }
 };
+```
 
+#### DELETE POST controller
+
+```javascript
 exports.deletePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -137,7 +151,11 @@ exports.deletePost = async (req, res, next) => {
       .json({ message: "Forbidden request: this is not your post !" });
   }
 };
+```
 
+#### LIKE POST controller
+
+```javascript
 exports.likePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -169,7 +187,11 @@ exports.likePost = async (req, res, next) => {
     })
     .catch((error) => res.status(400).json({ error }));
 };
+```
 
+#### UNLIKE POST controller
+
+```javascript
 exports.unlikePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -201,7 +223,11 @@ exports.unlikePost = async (req, res, next) => {
     })
     .catch((error) => res.status(400).json({ error }));
 };
+```
 
+#### CREATE COMMENT controller
+
+```javascript
 exports.createComment = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -234,7 +260,11 @@ exports.createComment = async (req, res, next) => {
     })
     .catch((error) => res.status(400).json({ error }));
 };
+```
 
+#### DELETE COMMENT controller
+
+```javascript
 exports.deleteComment = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
@@ -270,3 +300,4 @@ exports.deleteComment = async (req, res, next) => {
       .json({ message: "Forbidden request: this is not your post !" });
   }
 };
+```

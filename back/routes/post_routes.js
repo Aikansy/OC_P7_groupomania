@@ -8,15 +8,15 @@ const auth = require("../middlewares/auth");
 
 router.get("/", auth, postControllers.findAllPost);
 router.get("/:id", auth, postControllers.FindOnePost);
-router.post("/", auth, postControllers.createPost);
+router.post("/:id", auth, postControllers.createPost);
 router.put("/:id", auth, postControllers.updatePost);
 router.delete("/:id", auth, postControllers.deletePost);
 
 router.patch("/:id/like", auth, postControllers.likePost);
 router.patch("/:id/unlike", auth, postControllers.unlikePost);
 
-router.patch("/:id/comment", auth, postControllers.createCommentPost);
-router.patch("/:id/uncomment", auth, postControllers.deleteCommentPost);
+router.patch("/:id/comment", auth, postControllers.createComment);
+router.patch("/:id/uncomment", auth, postControllers.deleteComment);
 
 // *************************************************************************************** EXPORT(S)
 

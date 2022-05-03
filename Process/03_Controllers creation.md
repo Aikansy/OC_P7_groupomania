@@ -55,15 +55,15 @@ const postControllers = require("../controllers/post_controllers");
 
 router.get("/", postControllers.findAllPost);
 router.get("/:id", postControllers.FindOnePost);
-router.post("/", postControllers.createPost);
+router.post("/:id", postControllers.createPost);
 router.put("/:id", postControllers.updatePost);
 router.delete("/:id", postControllers.deletePost);
 
 router.patch("/:id/like", postControllers.likePost);
 router.patch("/:id/unlike", postControllers.unlikePost);
 
-router.patch("/:id/comment", postControllers.createCommentPost);
-router.patch("/:id/uncomment", postControllers.deleteCommentPost);
+router.patch("/:id/comment", postControllers.createComment);
+router.patch("/:id/uncomment", postControllers.deleteComment);
 
 module.exports = router;
 ```
@@ -100,9 +100,11 @@ exports.unfollowUser = async (req, res, next) => {};
 back/controllers/post_controllers.js:
 
 ```javascript
+const jwt = require("jsonwebtoken");
 const db = require("../models/index");
 const User = db.user;
 const Post = db.post;
+const Comment = db.comment;
 
 exports.findAllPost = async (req, res, next) => {};
 
@@ -118,9 +120,9 @@ exports.likePost = async (req, res, next) => {};
 
 exports.unlikePost = async (req, res, next) => {};
 
-exports.createCommentPost = async (req, res, next) => {};
+exports.createComment = async (req, res, next) => {};
 
-exports.deleteCommentPost = async (req, res, next) => {};
+exports.deleteComment = async (req, res, next) => {};
 ```
 
 ## Models
@@ -132,6 +134,14 @@ module.exports = (sequelize, Sequelize) => {};
 ```
 
 back/models/post_model.js
+
+```javascript
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {};
+```
+
+back/models/comment_model.js
 
 ```javascript
 const { DataTypes } = require("sequelize");

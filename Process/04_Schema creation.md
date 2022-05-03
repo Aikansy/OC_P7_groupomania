@@ -44,10 +44,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       defaultValue: "No Description",
     },
-    postCreated: {
-      type: Sequelize.JSON,
-      defaultValue: {},
-    },
     role: {
       type: Sequelize.STRING,
       defaultValue: "user",
@@ -58,6 +54,8 @@ module.exports = (sequelize, Sequelize) => {
 ```
 
 #### POST:
+
+back/models/post_model.js:
 
 ```javascript
 module.exports = (sequelize) => {
@@ -106,5 +104,35 @@ module.exports = (sequelize) => {
     },
   });
   return Post;
+};
+```
+
+#### COMMENT:
+
+back/models/comment_model.js:
+
+```javascript
+module.exports = (sequelize) => {
+  const Comment = sequelize.define("comment", {
+    _id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    post_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    commentator_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  });
+  return Comment;
 };
 ```

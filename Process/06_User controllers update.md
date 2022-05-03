@@ -1,10 +1,10 @@
 # 06 - User controllers update
 
-## User controllers
+## User controllers update
 
 back/controllers/user_controllers.js:
 
-#### SIGNUP controller
+#### SIGN UP controller
 
 ```javascript
 exports.signup = async (req, res, next) => {
@@ -86,7 +86,7 @@ exports.signup = async (req, res, next) => {
 };
 ```
 
-#### SIGNIN controller
+#### SIGN IN controller
 
 ```javascript
 exports.signin = async (req, res, next) => {
@@ -129,7 +129,7 @@ exports.signin = async (req, res, next) => {
 };
 ```
 
-#### FINDALLUSER controller
+#### FIND ALL USER controller
 
 ```javascript
 exports.findAllUser = async (req, res, next) => {
@@ -141,7 +141,7 @@ exports.findAllUser = async (req, res, next) => {
 };
 ```
 
-#### FINDONEUSER controller
+#### FIND ONE USER controller
 
 ```javascript
 exports.findOneUser = async (req, res, next) => {
@@ -156,7 +156,7 @@ exports.findOneUser = async (req, res, next) => {
     })
       .then((account) => res.status(200).json({ account }))
       .catch((error) => res.status(400).json({ error }));
-  } else if (user._id === req.params.id) {
+  } else if (user._id == req.params.id) {
     User.findOne({
       where: { _id: req.params.id },
       attributes: { exclude: ["token", "password", "role"] },
@@ -166,7 +166,7 @@ exports.findOneUser = async (req, res, next) => {
   } else {
     User.findOne({
       where: { _id: req.params.id },
-      attributes: { exclude: ["token", "email", "password", "role"] },
+      attributes: { exclude: ["_id", "token", "email", "password", "role"] },
     })
       .then((account) => res.status(200).json({ account }))
       .catch((error) => res.status(400).json({ error }));
@@ -174,7 +174,7 @@ exports.findOneUser = async (req, res, next) => {
 };
 ```
 
-#### UPDATEUSER controller
+#### UPDATE USER controller
 
 ```javascript
 exports.updateUser = async (req, res, next) => {
@@ -183,7 +183,7 @@ exports.updateUser = async (req, res, next) => {
   const userId = decodedToken.userId;
   const user = await User.findOne({ where: { _id: userId } });
 
-  if (user.role === "admin" || userId === req.params.id) {
+  if (user.role === "admin" || user._id == req.params.id) {
     await bcrypt
       .hash(req.body.password, 10)
       .then((hash) => {
@@ -191,20 +191,17 @@ exports.updateUser = async (req, res, next) => {
 
         User.findOne({ where: { _id: req.params.id } })
           .then((account) => {
-            const data = req.body;
+            const { nickname, email, imgUrl, description } = req.body;
 
-            for (let key of Object.keys(data)) {
-              if (!data[key]) {
-                delete data[key];
-              }
+            const newData = {
+              nickname: nickname ? nickname : user.nickname,
+              email: email ? email : user.email,
+              password: newHashedPassword ? newHashedPassword : user.password,
+              imgUrl: imgUrl ? imgUrl : user.imgUrl,
+              description: description ? description : user.description,
+            };
 
-              User.update(
-                { [key]: data[key], password: newHashedPassword },
-                { where: { _id: req.params.id } }
-              );
-            }
-
-            account.save();
+            account.update(newData);
             res.status(200).json({
               message: "The account has been successfully updated !",
             });
@@ -213,14 +210,14 @@ exports.updateUser = async (req, res, next) => {
       })
       .catch((error) => res.status(500).json({ error }));
   } else {
-    return res.status(403).json({
-      message: "Unauthorized request: this is not your account !",
-    });
+    return res
+      .status(403)
+      .json({ message: "Forbidden request: this is not your account !" });
   }
 };
 ```
 
-#### DELETEUSER controller
+#### DELETE USER controller
 
 ```javascript
 exports.deleteUser = async (req, res, next) => {
@@ -229,7 +226,7 @@ exports.deleteUser = async (req, res, next) => {
   const userId = decodedToken.userId;
   const user = await User.findOne({ where: { _id: userId } });
 
-  if (user.role === "admin" || userId === req.params.id) {
+  if (user.role === "admin" || user._id == req.params.id) {
     await User.destroy({ where: { _id: req.params.id } });
 
     await Post.findAll({ where: { creator_id: req.params.id } })
@@ -244,9 +241,9 @@ exports.deleteUser = async (req, res, next) => {
       .status(200)
       .json({ message: "The account has been successfully deleted !" });
   } else {
-    return res.status(403).json({
-      message: "Unauthorized request: this is not your account !",
-    });
+    return res
+      .status(403)
+      .json({ message: "Forbidden request: this is not your account !" });
   }
 };
 ```

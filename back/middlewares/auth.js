@@ -18,7 +18,10 @@ module.exports = async (req, res, next) => {
       },
     });
     if (!user) {
-      return res.status(404).json({ message: "User not found !" });
+      return res.status(404).json({
+        message:
+          "You were not found in our database. You cannot access our services !",
+      });
     }
     if (req.body.userId && req.body.userId !== userId) {
       return res.status(401).json({ message: "Unauthorized ID !" });
@@ -27,6 +30,8 @@ module.exports = async (req, res, next) => {
       return next();
     }
     if (req.body.userId && req.body.userId == userId) {
+      return next();
+    } else {
       return next();
     }
   } catch (error) {
