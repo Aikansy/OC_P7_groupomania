@@ -44,6 +44,14 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       defaultValue: "No Description",
     },
+    follower: {
+      type: Sequelize.JSON,
+      defaultValue: {},
+    },
+    following: {
+      type: Sequelize.JSON,
+      defaultValue: {},
+    },
     role: {
       type: Sequelize.STRING,
       defaultValue: "user",
@@ -98,10 +106,6 @@ module.exports = (sequelize) => {
       type: DataTypes.JSON,
       defaultValue: {},
     },
-    comments: {
-      type: DataTypes.JSON,
-      defaultValue: [],
-    },
   });
   return Post;
 };
@@ -121,6 +125,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
     post_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    postCreator_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

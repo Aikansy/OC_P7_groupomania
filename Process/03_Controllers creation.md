@@ -36,7 +36,7 @@ const userControllers = require("../controllers/user_controllers");
 router.post("/signup", userControllers.signup);
 router.post("/signin", userControllers.signin);
 
-router.get("/", userControllers.findAllUser);
+router.get("/", userControllers.findAllUsers);
 router.get("/:id", userControllers.findOneUser);
 router.put("/:id", userControllers.updateUser);
 router.delete("/:id", userControllers.deleteUser);
@@ -53,17 +53,19 @@ back/routes/post_routes.js:
 const router = require("express").Router();
 const postControllers = require("../controllers/post_controllers");
 
-router.get("/", postControllers.findAllPost);
+router.get("/", postControllers.findAllPosts);
 router.get("/:id", postControllers.FindOnePost);
-router.post("/:id", postControllers.createPost);
+router.post("/", postControllers.createPost);
 router.put("/:id", postControllers.updatePost);
 router.delete("/:id", postControllers.deletePost);
 
 router.patch("/:id/like", postControllers.likePost);
 router.patch("/:id/unlike", postControllers.unlikePost);
 
-router.patch("/:id/comment", postControllers.createComment);
-router.patch("/:id/uncomment", postControllers.deleteComment);
+router.get("/:id/comment", postControllers.findAllComments);
+router.post("/:id/comment", postControllers.createComment);
+router.put("/:id/comment", postControllers.updateComment);
+router.delete("/:id/comment", postControllers.deleteComment);
 
 module.exports = router;
 ```
@@ -79,6 +81,7 @@ const db = require("../models/index");
 require("dotenv").config({ path: "../back/config/config.env" });
 const User = db.user;
 const Post = db.post;
+const Comment = db.comment;
 
 exports.signup = async (req, res, next) => {};
 

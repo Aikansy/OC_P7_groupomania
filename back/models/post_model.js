@@ -44,10 +44,6 @@ module.exports = (sequelize) => {
       type: DataTypes.JSON,
       defaultValue: {},
     },
-    comments: {
-      type: DataTypes.JSON,
-      defaultValue: [],
-    },
   });
   return Post;
 };

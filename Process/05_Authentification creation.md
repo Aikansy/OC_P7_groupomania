@@ -68,7 +68,7 @@ back/routes/user_routes.js:
 ```javascript
 const auth = require("../middlewares/auth");
 
-router.get("/", auth, userControllers.findAllUser);
+router.get("/", auth, userControllers.findAllUsers);
 router.get("/:id", auth, userControllers.findOneUser);
 router.put("/:id", auth, userControllers.updateUser);
 router.delete("/:id", auth, userControllers.deleteUser);
@@ -84,15 +84,17 @@ back/routes/post_routes.js:
 ```javascript
 const auth = require("../middlewares/auth");
 
-router.get("/", auth, postControllers.findAllPost);
+router.get("/", auth, postControllers.findAllPosts);
 router.get("/:id", auth, postControllers.FindOnePost);
-router.post("/:id", auth, postControllers.createPost);
+router.post("/", auth, postControllers.createPost);
 router.put("/:id", auth, postControllers.updatePost);
 router.delete("/:id", auth, postControllers.deletePost);
 
 router.patch("/:id/like", auth, postControllers.likePost);
 router.patch("/:id/unlike", auth, postControllers.unlikePost);
 
-router.patch("/:id/comment", auth, postControllers.createComment);
-router.patch("/:id/uncomment", auth, postControllers.deleteComment);
+router.get("/:id/comment", auth, postControllers.findAllComments);
+router.post("/:id/comment", auth, postControllers.createComment);
+router.put("/:id/comment", auth, postControllers.updateComment);
+router.delete("/:id/comment", auth, postControllers.deleteComment);
 ```
