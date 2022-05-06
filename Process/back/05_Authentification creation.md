@@ -22,19 +22,12 @@ module.exports = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
     const userId = decodedToken.userId;
-    const user = await User.findOne({
-      where: {
-        _id: userId,
-      },
-    });
+    const user = await User.findOne({ where: { _id: userId } });
     if (!user) {
       return res.status(404).json({
         message:
           "You were not found in our database. You cannot access our services !",
       });
-    }
-    if (req.body.userId && req.body.userId !== userId) {
-      return res.status(401).json({ message: "Unauthorized ID !" });
     }
     if (user.role === "admin") {
       return next();
