@@ -12,7 +12,7 @@ const Comment = db.comment;
 
 exports.signup = async (req, res, next) => {
   if (!req.body.nickname)
-    return res.status(400).json({ message: "Pseudo is required !" });
+    return res.status(400).json({ message: "Nickname is required !" });
   if (!req.body.email)
     return res.status(400).json({ message: "Email is required !" });
   if (!req.body.password)
@@ -42,7 +42,7 @@ exports.signup = async (req, res, next) => {
             );
             user.token = token;
             user.save();
-            res.status(201).json({ user });
+            res.status(201).json({ token: token });
           })
           .catch(() =>
             res.status(400).json({ message: "This email is already in use !" })
@@ -72,7 +72,7 @@ exports.signup = async (req, res, next) => {
             );
             user.token = token;
             user.save();
-            res.status(201).json({ user });
+            res.status(201).json({ token: token });
           })
           .catch(() =>
             res.status(400).json({ message: "This email is already in use !" })
@@ -91,14 +91,14 @@ exports.signin = async (req, res, next) => {
   await User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({ error: "User not found !" });
+        return res.status(401).json({ error: "Email not found !" });
       }
 
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: "Incorrect password !" });
+            return res.status(401).json({ error: "Password is not correct !" });
           }
           const token = jwt.sign(
             {
@@ -111,7 +111,7 @@ exports.signin = async (req, res, next) => {
           );
           user.token = token;
           user.save();
-          res.status(200).json({ user });
+          res.status(200).json({ token: token });
         })
         .catch((error) => res.status(500).json({ error }));
     })

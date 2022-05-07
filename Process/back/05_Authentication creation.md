@@ -1,4 +1,4 @@
-# 05 - Authentification creation
+# 05 - Authentication creation
 
 ## Auth file(s)/folder(s) creation
 
@@ -77,8 +77,6 @@ back/routes/post_routes.js:
 ```javascript
 const auth = require("../middlewares/auth");
 
-router.get("/", auth, postControllers.findAllPosts);
-router.get("/:id", auth, postControllers.FindOnePost);
 router.post("/", auth, postControllers.createPost);
 router.put("/:id", auth, postControllers.updatePost);
 router.delete("/:id", auth, postControllers.deletePost);
@@ -86,7 +84,6 @@ router.delete("/:id", auth, postControllers.deletePost);
 router.patch("/:id/like", auth, postControllers.likePost);
 router.patch("/:id/unlike", auth, postControllers.unlikePost);
 
-router.get("/:id/comment", auth, postControllers.findAllComments);
 router.post("/:id/comment", auth, postControllers.createComment);
 router.put("/:id/comment", auth, postControllers.updateComment);
 router.delete("/:id/comment", auth, postControllers.deleteComment);

@@ -1,9 +1,9 @@
 import React from "react";
-import Routes from "./components/routes";
+import Routes from "../components/routes";
 
 const App = () => {
   return (
-    <div>
+    <div id="coreBlock">
       <Routes />
     </div>
   );

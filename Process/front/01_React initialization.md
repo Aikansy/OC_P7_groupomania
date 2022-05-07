@@ -13,17 +13,20 @@ Initializes the project and installs Create-React-App along with Yarn and its de
 
 front:
 
+    > (front/src) "mkdir app"
     > (front/src) "mkdir components"
     > (front/src) "mkdir pages"
     > (front/src) "mkdir styles"
-    > (front/src) "mkdir assets"
-    > (front/src/assets) "mkdir icons"
-    > (front/src/pages) "touch Home.js"
-    > (front/src/pages) "touch Trending.js"
+
+    > (front/src/pages) "touch HomePage.js"
+    > (front/src/pages) "touch SignPage.js"
+    > (front/src/pages) "touch ProfilePage.js"
+
     > (front/src/components) "mkdir routes"
     > (front/src/components/routes) "touch index.js"
+
     > (front/public) "mkdir images"
-    > (front/public) "mkdir uploads"
+    > (front/public) "mkdir icons"
 
 ## Update index.js
 
@@ -112,40 +115,34 @@ front/src:
 
 front/src/pages:
 
-#### Home.js
+#### HomePage.js
 
 ```javascript
 import React from "react";
 
-const Home = () => {
-  return <div>Hello from Home</div>;
+export const Home = () => {
+  return <section className="homeSection">Hello from Home</section>;
 };
-
-export default Home;
 ```
 
-#### Trending.js
+#### SignPage.js
 
 ```javascript
 import React from "react";
 
-const Trending = () => {
-  return <div>Hello from Trending</div>;
+export const Sign = () => {
+  return <section className="signSection">Hello from Sign</section>;
 };
-
-export default Trending;
 ```
 
-#### Profile.js
+#### ProfilePage.js
 
 ```javascript
 import React from "react";
 
-const Profile = () => {
-  return <div>Hello from Profile</div>;
+export const Profile = () => {
+  return <section className="profileSection">Hello from Profile</section>;
 };
-
-export default Profile;
 ```
 
 ## Configure the ROUTER
@@ -162,17 +159,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "../../pages/Home";
-import Profile from "../../pages/Profile";
-import Trending from "../../pages/Trending";
+import { Home } from "../../pages/HomePage";
+import { Sign } from "../../pages/SignPage";
+import { Profile } from "../../pages/ProfilePage";
 
 const index = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/sign" element={<Sign />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/trending" element={<Trending />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>
