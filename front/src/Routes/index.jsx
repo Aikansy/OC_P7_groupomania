@@ -5,17 +5,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { Home } from "../../pages/HomePage";
-import { Sign } from "../../pages/SignPage";
-import { Profile } from "../../pages/ProfilePage";
+import { HomePage } from "../Pages/homePage";
+import { SignPage } from "../Pages/signPage";
+import { ProfilePage } from "../Pages/profilePage";
 
 const index = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Sign />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<SignPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>

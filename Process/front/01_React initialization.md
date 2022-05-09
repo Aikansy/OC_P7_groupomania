@@ -13,20 +13,22 @@ Initializes the project and installs Create-React-App along with Yarn and its de
 
 front:
 
-    > (front/src) "mkdir app"
-    > (front/src) "mkdir components"
-    > (front/src) "mkdir pages"
-    > (front/src) "mkdir styles"
+    > (front/src) "mkdir App"
+    > (front/src) "mkdir Components"
+    > (front/src) "mkdir Pages"
+    > (front/src) "mkdir Routes"
+    > (front/src) "mkdir Style"
 
-    > (front/src/pages) "touch HomePage.js"
-    > (front/src/pages) "touch SignPage.js"
-    > (front/src/pages) "touch ProfilePage.js"
+    > (front/src/App) mv app.jsx in
 
-    > (front/src/components) "mkdir routes"
-    > (front/src/components/routes) "touch index.js"
+    > (front/src/Routes) "touch index.jsx"
 
-    > (front/public) "mkdir images"
-    > (front/public) "mkdir icons"
+    > (front/src/Pages) "touch homePage.jsx"
+    > (front/src/Pages) "touch signPage.jsx"
+    > (front/src/Pages) "touch profilePage.jsx"
+
+    > (front/public) "mkdir Images"
+    > (front/public) "mkdir Icons"
 
 ## Update index.js
 
@@ -37,7 +39,7 @@ front/src/index.js:
 ```javascript
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import App from "./App/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -93,7 +95,7 @@ front/public/index.html:
     <title>Hauler</title>
   </head>
   <body>
-    <div id="root"></div>
+    <main id="root"></main>
   </body>
 </html>
 ```
@@ -113,41 +115,41 @@ front/src:
 
 ## Create PAGES
 
-front/src/pages:
+front/src/Pages:
 
-#### HomePage.js
+#### homePage.jsx
 
 ```javascript
 import React from "react";
 
-export const Home = () => {
+export const HomePage = () => {
   return <section className="homeSection">Hello from Home</section>;
 };
 ```
 
-#### SignPage.js
+#### signPage.jsx
 
 ```javascript
 import React from "react";
 
-export const Sign = () => {
+export const SignPage = () => {
   return <section className="signSection">Hello from Sign</section>;
 };
 ```
 
-#### ProfilePage.js
+#### profilePage.jsx
 
 ```javascript
 import React from "react";
 
-export const Profile = () => {
+export const ProfilePage = () => {
   return <section className="profileSection">Hello from Profile</section>;
 };
 ```
 
-## Configure the ROUTER
+## Configure the routes
 
-front/src/components/routes/index.js:
+front/src/Routes/index.jsx:
 
 In react-router-dom v6, "Switch" is replaced by "Routes", just like "Redirect" is replaced by "Navigate".
 
@@ -159,17 +161,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { Home } from "../../pages/HomePage";
-import { Sign } from "../../pages/SignPage";
-import { Profile } from "../../pages/ProfilePage";
+import { HomePage } from "../../Pages/homePage";
+import { SignPage } from "../../Pages/signPage";
+import { ProfilePage } from "../../Pages/profilePage";
 
 const index = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign" element={<Sign />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<SignPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>
@@ -179,21 +181,19 @@ const index = () => {
 export default index;
 ```
 
-## Update & call ROUTER in App.js
+## Update & call routes in App.js
 
-front/src/App.js
+front/src/App/app.js
 
 ```javascript
 import React from "react";
-import Routes from "./components/routes";
+import Routes from "../Routes";
 
-const App = () => {
+export const App = () => {
   return (
-    <div>
+    <div id="coreBlock">
       <Routes />
     </div>
   );
 };
-
-export default App;
 ```

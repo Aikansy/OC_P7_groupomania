@@ -1,87 +1,110 @@
 # 02 - Authentication creation
 
-## Create components
+## Create Components
 
-    > (front/src/components) "mkdir sign_components"
-    > (front/src/components) "touch providers.jsx"
-    > (front/src/components/sign_components) "touch index.js"
-    > (front/src/components/sign_components) "touch Signup.js"
-    > (front/src/components/sign_components) "touch Signin.js"
+    > (front/src/Components) "mkdir Sign"
+    > (front/src/Components) "touch _componentProviders.jsx"
+    > (front/src/Components/Sign) "touch index.jsx"
+    > (front/src/Components/Sign) "touch signup.jsx"
+    > (front/src/Components/Sign) "touch signin.jsx"
+    > (front/src/Components/Sign) "touch _signProviders.jsx"
 
-## Providers
+## \_providers
 
-front/src/components/providers.jsx:
+front/src/Components/\_componentProviders.jsx:
 
 ```javascript
-const addToken = async (item) => {
-  let user = JSON.parse(localStorage.getItem("user"));
+export const addSessionUser = async (item) => {
+  let user = JSON.parse(sessionStorage.getItem("hauler_user"));
 
   if (user) {
-    return false;
+    sessionStorage.clear("hauler_user");
+    sessionStorage.setItem("hauler_user", JSON.stringify(item));
   } else {
-    localStorage.setItem("user", JSON.stringify(item));
-    return true;
+    sessionStorage.setItem("hauler_user", JSON.stringify(item));
   }
 };
 
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+export const getSessionUser = () => {
+  const user = JSON.parse(sessionStorage.getItem("hauler_user"));
   const token = user.token;
   return token;
 };
+```
 
-const formValidity = () => {
+## \_SignProviders
+
+front/src/Components/Sign/\_signProviders.jsx:
+
+```javascript
+export const formError = () => {
   const nickname = document.querySelector("#nickname").value;
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
+  const confirmed = document.querySelector("#confirmedPassword").value;
+  const cgu = document.querySelector("#cgu");
 
   const nicknameError = document.querySelector("#nicknameErrorMsg");
   const emailError = document.querySelector("#emailErrorMsg");
   const passwordError = document.querySelector("#passwordErrorMsg");
+  const confirmedError = document.querySelector("#confirmedPasswordErrorMsg");
+  const cguError = document.querySelector("#cguErrorMsg");
 
-  let formError = false;
+  let error = false;
 
   if (!nickname.match(/^[A-Za-zÜ-ü'\s-]{2,50}$/)) {
-    nicknameError.textContent = `(Nombre de caractères acceptés : min: 2, max: 50) Caractères acceptés : lettres majuscules et minuscules, accents, apostrophe, espace et tiret`;
-    formError = true;
+    nicknameError.textContent = `Caractères acceptés : min: 2, max: 50, lettres majuscules et minuscules, accents, apostrophe, espace et tiret.`;
+    error = true;
   } else {
     nicknameError.textContent = "";
   }
 
   if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-    emailError.textContent = `Format email invalide`;
-    formError = true;
+    emailError.textContent = `Format email invalide.`;
+    error = true;
   } else {
     emailError.textContent = "";
   }
 
   if (!password.match(/^[\0-9A-Za-z]{8,50}$/)) {
-    passwordError.textContent = `(Nombre de caractères acceptés : min: 8, max: 50) Caractères acceptés : chiffres, lettres majuscules et minuscules`;
-    formError = true;
+    passwordError.textContent = `Caractères acceptés : min: 8, max: 50, chiffres, lettres majuscules et minuscules.`;
+    error = true;
   } else {
     passwordError.textContent = "";
   }
 
-  return formError;
-};
+  if (confirmed !== password) {
+    confirmedError.textContent = "Les mots de passe ne correspondent pas.";
+    error = true;
+  } else {
+    confirmedError.textContent = "";
+  }
 
-module.exports.addToken = addToken;
-module.exports.getToken = getToken;
-module.exports.formValidity = formValidity;
+  if (!cgu.checked) {
+    cguError.textContent = "Vous devez accepter les CGU pour vous inscrire.";
+    error = true;
+  } else {
+    cguError.textContent = "";
+  }
+
+  return error;
+};
 ```
 
-## Signup components
+## Signup Components
 
-front/src/components/log/Signup.js:
+front/src/Components/Sign/signup.jsx:
 
 ```javascript
 import React, { useState } from "react";
-import { addToken, formValidity } from "../providers";
+import { addSessionUser } from "../_componentProviders";
+import { formError } from "./_signProviders";
 
 export const Signup = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -92,7 +115,7 @@ export const Signup = () => {
       password: e.target.password.value,
     };
 
-    if (formValidity() === false) {
+    if (formError() === false) {
       const options = {
         method: "POST",
         body: JSON.stringify(user),
@@ -108,13 +131,14 @@ export const Signup = () => {
       );
       const result = await response.json();
 
-      addToken(result);
+      addSessionUser(result);
       window.location = "/home";
     }
   };
 
   return (
     <form action="" onSubmit={handleLogin} className="form">
+      <h2>Inscription</h2>
       <div className="form__input">
         <label htmlFor="nickname">Pseudo</label>
         <br />
@@ -126,7 +150,7 @@ export const Signup = () => {
           value={nickname}
           required
         ></input>
-        <p id="nicknameErrorMsg"></p>
+        <p id="nicknameErrorMsg" className="errorMsg"></p>
       </div>
       <div className="form__input">
         <label htmlFor="email">Email</label>
@@ -139,7 +163,7 @@ export const Signup = () => {
           value={email}
           required
         ></input>
-        <p id="emailErrorMsg"></p>
+        <p id="emailErrorMsg" className="errorMsg"></p>
       </div>
       <div className="form__input">
         <label htmlFor="password">Mot de passe</label>
@@ -152,21 +176,44 @@ export const Signup = () => {
           value={password}
           required
         ></input>
-        <p id="passwordErrorMsg"></p>
+        <p id="passwordErrorMsg" className="errorMsg"></p>
       </div>
-      <input type="submit" value="Se connecter" id="login"></input>
+      <div className="form__input">
+        <label htmlFor="confirmedPassword">Confirmer le mot de passe</label>
+        <br />
+        <input
+          type="password"
+          name="confirmedPassword"
+          id="confirmedPassword"
+          onChange={(event) => setConfirmedPassword(event.target.value)}
+          value={confirmedPassword}
+          required
+        ></input>
+        <p id="confirmedPasswordErrorMsg" className="errorMsg"></p>
+      </div>
+      <div className="form__input">
+        <input type="checkbox" id="cgu" />
+        <label htmlFor="cgu">
+          J'accepte les{" "}
+          <a href="/" target="_blank" rel="noopener noreferrer">
+            conditions générales d'utilisation
+          </a>
+          <p id="cguErrorMsg" className="errorMsg"></p>
+        </label>
+      </div>
+      <input type="submit" value="S'inscrire" id="login"></input>
     </form>
   );
 };
 ```
 
-## Signin components
+## Signin Components
 
-front/src/components/log/Signin.js:
+front/src/Components/Sign/signin.jsx:
 
 ```javascript
 import React, { useState } from "react";
-import { addToken } from "../providers";
+import { addSessionUser } from "../_componentProviders";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
@@ -210,13 +257,14 @@ export const Signin = () => {
         passwordError.textContent = "";
       }
     } else {
-      addToken(result);
+      addSessionUser(result);
       window.location = "/home";
     }
   };
 
   return (
     <form action="" onSubmit={handleLogin} className="form">
+      <h2>Connexion</h2>
       <div className="form__input">
         <label htmlFor="email">Email</label>
         <br />
@@ -251,16 +299,16 @@ export const Signin = () => {
 };
 ```
 
-## index components
+## index (Components/Sign)
 
-front/src/components/log/index.js:
+front/src/Components/Sign/index.jsx:
 
 ```javascript
 import React, { useState } from "react";
-import { Signup } from "./Signup";
-import { Signin } from "./Signin";
+import { Signup } from "./signup";
+import { Signin } from "./signin";
 
-const Log = (props) => {
+export const Sign = (props) => {
   const [signupModal, setSignupModal] = useState(props.signup);
   const [signinModal, setSigninModal] = useState(props.signin);
 
@@ -301,22 +349,20 @@ const Log = (props) => {
     </ul>
   );
 };
-
-export default Log;
 ```
 
 ## Sign page
 
-UPDATE front/src/pages/Sign.js:
+UPDATE front/src/Pages/signPage.jsx:
 
 ```javascript
 import React from "react";
-import Log from "../components/sign_components";
+import { Sign } from "../Components/Sign";
 
-export const Sign = () => {
+export const SignPage = () => {
   return (
     <section className="signSection">
-      <Log signin={false} signup={true} />
+      <Sign signin={false} signup={true} />
     </section>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Signup } from "./Signup";
-import { Signin } from "./Signin";
+import { Signup } from "./signup";
+import { Signin } from "./signin";
 
-const Log = (props) => {
+export const Sign = (props) => {
   const [signupModal, setSignupModal] = useState(props.signup);
   const [signinModal, setSigninModal] = useState(props.signin);
 
@@ -43,5 +43,3 @@ const Log = (props) => {
     </ul>
   );
 };
-
-export default Log;

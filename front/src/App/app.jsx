@@ -1,12 +1,10 @@
 import React from "react";
-import Routes from "../components/routes";
+import Routes from "../Routes";
 
-const App = () => {
+export const App = () => {
   return (
     <div id="coreBlock">
       <Routes />
     </div>
   );
 };
-
-export default App;

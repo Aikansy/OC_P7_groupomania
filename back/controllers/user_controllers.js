@@ -42,7 +42,7 @@ exports.signup = async (req, res, next) => {
             );
             user.token = token;
             user.save();
-            res.status(201).json({ token: token });
+            res.status(201).json({ userId: user._id, token: token });
           })
           .catch(() =>
             res.status(400).json({ message: "This email is already in use !" })
@@ -72,7 +72,7 @@ exports.signup = async (req, res, next) => {
             );
             user.token = token;
             user.save();
-            res.status(201).json({ token: token });
+            res.status(201).json({ userId: user._id, token: token });
           })
           .catch(() =>
             res.status(400).json({ message: "This email is already in use !" })
@@ -111,7 +111,7 @@ exports.signin = async (req, res, next) => {
           );
           user.token = token;
           user.save();
-          res.status(200).json({ token: token });
+          res.status(200).json({ userId: user._id, token: token });
         })
         .catch((error) => res.status(500).json({ error }));
     })
