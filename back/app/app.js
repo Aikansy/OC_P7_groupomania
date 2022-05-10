@@ -7,6 +7,7 @@ const app = express();
 const db = require("../models/index");
 const userRoutes = require("../routes/user_routes");
 const postRoutes = require("../routes/post_routes");
+const check_user = require("../middlewares/check_user");
 require("dotenv").config({ path: "../back/config/config.env" });
 
 // ******************************************************************************* APP (APPLICATION)
@@ -29,17 +30,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", function (req, res, next) {
-  res.status(200).send("<h1>Bienvenue sur le réseau social Groupomonia !</h1>");
-  next();
-});
-
 db.sequelize.sync();
 
 // ******************************************************************************** ROUTE HANDLER(S)
 
 app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
+app.get("/api/jwt", check_user);
 
 // *************************************************************************************** EXPORT(S)
 

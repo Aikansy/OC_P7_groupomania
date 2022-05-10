@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { addSessionUser } from "../_componentProviders";
-import { formError } from "./_signProviders";
+import { useState } from "react";
+import { addSessionUser } from "../Providers/providers";
+import { formError } from "../Providers/providers";
 
 export const Signup = () => {
   const [nickname, setNickname] = useState("");
@@ -42,7 +42,7 @@ export const Signup = () => {
     <form action="" onSubmit={handleLogin} className="form">
       <h2>Inscription</h2>
       <div className="form__input">
-        <label htmlFor="nickname">Pseudo</label>
+        <label htmlFor="nickname">Nom d'utilisateur</label>
         <br />
         <input
           type="text"
@@ -58,7 +58,7 @@ export const Signup = () => {
         <label htmlFor="email">Email</label>
         <br />
         <input
-          type="email"
+          type="text"
           name="email"
           id="email"
           onChange={(event) => setEmail(event.target.value)}

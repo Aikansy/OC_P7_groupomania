@@ -6,6 +6,7 @@ back:
 
     > (back) "mkdir middlewares"
     > (back/models) "touch auth.js"
+    > (back/models) "touch check_user.js"
 
 ## Auth creation
 
@@ -87,4 +88,45 @@ router.patch("/:id/unlike", auth, postControllers.unlikePost);
 router.post("/:id/comment", auth, postControllers.createComment);
 router.put("/:id/comment", auth, postControllers.updateComment);
 router.delete("/:id/comment", auth, postControllers.deleteComment);
+```
+
+## Check User
+
+back/middlewares/check_user.js:
+
+```javascript
+// *************************************************************************************** IMPORT(S)
+
+const jwt = require("jsonwebtoken");
+const db = require("../models/index");
+const User = db.user;
+require("dotenv").config({ path: "../back/config/config.env" });
+
+// ************************************************************************************* REQUIREAUTH
+
+module.exports = async (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
+  const userId = decodedToken.userId;
+  const user = await User.findOne({ where: { _id: userId } });
+
+  if (!token) {
+    return res.status(404).json({ message: "No token !" });
+  } else if (!user) {
+    return res.status(404).json({ message: "No user matches !" });
+  } else {
+    res.status(200).json({ userId });
+    next();
+  }
+};
+```
+
+## Check User import
+
+back/app/app.js:
+
+```javascript
+const check_user = require("../middlewares/check_user");
+
+app.get("/api/jwt", check_user);
 ```

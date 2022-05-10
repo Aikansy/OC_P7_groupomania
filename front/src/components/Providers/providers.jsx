@@ -1,3 +1,26 @@
+export const addSessionUser = async (item) => {
+  let user = JSON.parse(localStorage.getItem("hauler_user"));
+
+  if (user) {
+    localStorage.clear("hauler_user");
+    localStorage.setItem("hauler_user", JSON.stringify(item));
+  } else {
+    localStorage.setItem("hauler_user", JSON.stringify(item));
+  }
+};
+
+export const getSessionUser = () => {
+  const user = JSON.parse(localStorage.getItem("hauler_user"));
+
+  if (!user) {
+    const token = "";
+    return token;
+  } else {
+    const token = user.token;
+    return token;
+  }
+};
+
 export const formError = () => {
   const nickname = document.querySelector("#nickname").value;
   const email = document.querySelector("#email").value;

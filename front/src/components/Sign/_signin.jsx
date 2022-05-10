@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { addSessionUser } from "../_componentProviders";
+import { useState } from "react";
+import { addSessionUser } from "../Providers/providers";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");

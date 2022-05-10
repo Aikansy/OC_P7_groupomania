@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Signup } from "./signup";
-import { Signin } from "./signin";
+import { useState } from "react";
+import { Signup } from "./_signup";
+import { Signin } from "./_signin";
 
 export const Sign = (props) => {
   const [signupModal, setSignupModal] = useState(props.signup);
@@ -17,29 +17,31 @@ export const Sign = (props) => {
   };
 
   return (
-    <ul className="signBlock">
-      <li
-        onClick={handleModals}
-        id="signup"
-        className={
-          signupModal ? "signBlock__button--active" : "signBlock__button"
-        }
-      >
-        Inscription
-      </li>
-      <li
-        onClick={handleModals}
-        id="signin"
-        className={
-          signinModal ? "signBlock__button--active" : "signBlock__button"
-        }
-      >
-        Connexion
-      </li>
+    <div className="signBlock">
+      <div className="signBlock__buttonBlock">
+        <button
+          onClick={handleModals}
+          id="signup"
+          className={
+            signupModal ? "signBlock__button--active" : "signBlock__button"
+          }
+        >
+          Inscription
+        </button>
+        <button
+          onClick={handleModals}
+          id="signin"
+          className={
+            signinModal ? "signBlock__button--active" : "signBlock__button"
+          }
+        >
+          Connexion
+        </button>
+      </div>
       <div className="signBlock__form">
         {signupModal && <Signup />}
         {signinModal && <Signin />}
       </div>
-    </ul>
+    </div>
   );
 };

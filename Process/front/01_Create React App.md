@@ -1,31 +1,67 @@
-# 01 - CREATE-REACT-APP/YARN initialization
+# 01 - Create React App
 
 ## Install dependencies
 
     > (root folder) "npx create-react-app front"
     > (front) "npm install --save yarn"
     > (front) "npm install --save react-router-dom"
+    > (front) "npm install --save react-redux"
+    > (front) "npm install --save redux"
+    > (front) "npm install --save redux-thunk"
+    > (front) "npm install --save redux-logger"
+    > (front) "npm install --save redux-devtools-extension"
+    > (front) "npm install --save @reduxjs/toolkit"
 
 Initializes the project and installs Create-React-App along with Yarn and its dependencies. Will also create a pre-configured folder.
 "npx" is the recommended command to install CRA (Create-React-App)
+
+## Clear folders of unused files
+
+front/public:
+
+    > All images and icons
+
+front/src:
+
+    > All css files
+    > App.test.js
+    > setupTest.js
+    > reportWebVitals.js
 
 ## front file(s)/folder(s) creation
 
 front:
 
     > (front/src) "mkdir App"
-    > (front/src) "mkdir Components"
-    > (front/src) "mkdir Pages"
-    > (front/src) "mkdir Routes"
-    > (front/src) "mkdir Style"
-
     > (front/src/App) mv app.jsx in
 
-    > (front/src/Routes) "touch index.jsx"
+    > (front/src) "mkdir Assets"
+    > (front/src/Assets) "mkdir Logos"
+    > (front/src/Assets/Logos) mv all needed logos
 
+    > (front/src) "mkdir Components"
+    > (front/src/Components) "mkdir Context"
+    > (front/src/Components/Context) "touh appContext.jsx"
+    > (front/src/Components) "mkdir Home"
+    > (front/src/Components/Home) "touh _fresh.jsx"
+    > (front/src/Components/Home) "touh _trending.jsx"
+    > (front/src/Components/Home) "touh index.jsx"
+    > (front/src/Components) "mkdir Navigation"
+    > (front/src/Components/Navigation) "touh index.jsx"
+    > (front/src/Components) "mkdir Profile"
+    > (front/src/Components/Profile) "touh index.jsx"
+    > (front/src/Components) "mkdir Providers"
+    > (front/src/Components/Providers) "touh providers.jsx"
+    > (front/src/Components) "mkdir Sign"
+    > (front/src/Components/Sign) "touh _signin.jsx"
+    > (front/src/Components/Sign) "touh _signup.jsx"
+    > (front/src/Components/Sign) "touh index.jsx"
+    > (front/src) "mkdir Pages"
     > (front/src/Pages) "touch homePage.jsx"
-    > (front/src/Pages) "touch signPage.jsx"
     > (front/src/Pages) "touch profilePage.jsx"
+    > (front/src) "mkdir Routes"
+    > (front/src/Routes) "touch index.jsx"
+    > (front/src) "mkdir Style"
 
     > (front/public) "mkdir Images"
     > (front/public) "mkdir Icons"
@@ -39,7 +75,7 @@ front/src/index.js:
 ```javascript
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App/App";
+import { App } from "./App/app";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -56,7 +92,7 @@ Or:
 ```javascript
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import { App } from "./App/app";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -64,13 +100,13 @@ const root = createRoot(rootElement);
 root.render(
   <StrictMode>
     <App />
-  <StrictMode>
+  </StrictMode>
 );
 ```
 
 then:
 
-    > (front) "yarn start" or "npm start"
+    > (front) "yarn start"
 
 ## Update index.html
 
@@ -81,7 +117,7 @@ front/public/index.html:
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="../src/assets/icons/icon-1b3157.png" />
+    <link rel="icon" href="./Icons/icon-1b3157.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
@@ -100,19 +136,6 @@ front/public/index.html:
 </html>
 ```
 
-## Clear folders of unused files
-
-front/public:
-
-    > All images and icons
-
-front/src:
-
-    > All css files
-    > App.test.js
-    > setupTest.js
-    > reportWebVitals.js
-
 ## Create PAGES
 
 front/src/Pages:
@@ -120,28 +143,14 @@ front/src/Pages:
 #### homePage.jsx
 
 ```javascript
-import React from "react";
-
 export const HomePage = () => {
   return <section className="homeSection">Hello from Home</section>;
-};
-```
-
-#### signPage.jsx
-
-```javascript
-import React from "react";
-
-export const SignPage = () => {
-  return <section className="signSection">Hello from Sign</section>;
 };
 ```
 
 #### profilePage.jsx
 
 ```javascript
-import React from "react";
-
 export const ProfilePage = () => {
   return <section className="profileSection">Hello from Profile</section>;
 };
@@ -161,16 +170,16 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { HomePage } from "../../Pages/homePage";
-import { SignPage } from "../../Pages/signPage";
-import { ProfilePage } from "../../Pages/profilePage";
+import { HomePage } from "../Pages/homePage";
+import { ProfilePage } from "../Pages/profilePage";
+import { Navbar } from "../Components/Navigation";
 
 const index = () => {
   return (
     <Router>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<SignPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
