@@ -4,10 +4,9 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const db = require("../models/index");
+const db = require("../config/index");
 const userRoutes = require("../routes/user_routes");
 const postRoutes = require("../routes/post_routes");
-const check_user = require("../middlewares/check_user");
 require("dotenv").config({ path: "../back/config/config.env" });
 
 // ******************************************************************************* APP (APPLICATION)
@@ -36,7 +35,6 @@ db.sequelize.sync();
 
 app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
-app.get("/api/jwt", check_user);
 
 // *************************************************************************************** EXPORT(S)
 

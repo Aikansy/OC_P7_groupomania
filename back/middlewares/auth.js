@@ -1,7 +1,7 @@
 // *************************************************************************************** IMPORT(S)
 
 const jwt = require("jsonwebtoken");
-const db = require("../models/index");
+const db = require("../config/index");
 const User = db.user;
 require("dotenv").config({ path: "../back/config/config.env" });
 

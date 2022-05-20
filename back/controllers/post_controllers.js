@@ -1,10 +1,11 @@
 // *************************************************************************************** IMPORT(S)
 
 const jwt = require("jsonwebtoken");
-const db = require("../models/index");
+const db = require("../config/index");
 const User = db.user;
 const Post = db.post;
 const Comment = db.comment;
+const fs = require("fs");
 
 // *********************************************************************************** CONTROLLER(S)
 
@@ -32,20 +33,48 @@ exports.createPost = async (req, res, next) => {
   const userId = decodedToken.userId;
   const user = await User.findOne({ where: { _id: userId } });
 
-  const { title, imgUrl, videoUrl, message } = req.body;
-
   const post = {
-    creator_id: user._id,
+    creator_id: req.body.creator_id,
     creator: user.nickname,
-    title: title,
-    imgUrl: imgUrl,
-    videoUrl: videoUrl,
-    message: message,
+    title: req.body.title,
+    imgUrl: req.file.filename,
+    message: req.body.message,
   };
 
-  await Post.create(post)
-    .then((newPost) => res.status(200).json({ newPost }))
-    .catch((error) => res.status(400).json({ error }));
+  if (!req.file) {
+    return res.json({ error: "No image" });
+  } else {
+    Post.create(post)
+      .then((newPost) => {
+        const postImageDir = `../front/src/uploads/posts/user_${userId}`;
+        const newFilename = `postid_${newPost._id}_${req.file.filename}`;
+        fs.readFile(
+          `${postImageDir}/${newPost.imgUrl}`,
+          function (error, data) {
+            if (error) throw error;
+            fs.writeFile(
+              `${postImageDir}/${newFilename}`,
+              data,
+              function (error) {
+                if (error) throw error;
+              }
+            );
+          }
+        );
+        const oldPostImageDir = `../front/src/uploads/posts/user_${userId}/${req.file.filename}`;
+        fs.unlink(oldPostImageDir, function (error) {
+          if (error) throw error;
+        });
+
+        newPost
+          .update({ imgUrl: newFilename })
+          .then((data) => res.status(200).json(data))
+          .catch((error) => res.status(400).json({ error }));
+
+        res.status(200);
+      })
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
 
 exports.updatePost = async (req, res, next) => {
@@ -70,11 +99,62 @@ exports.updatePost = async (req, res, next) => {
     await post
       .save()
       .then((updatedPost) => res.status(200).json({ updatedPost }))
-      .catch((error) => res.status(400).json({ error }));
+      .catch(() => res.status(400).json({ error: "Error save post on DB" }));
   } else {
     return res
       .status(403)
-      .json({ message: "Forbidden request: this is not your post !" });
+      .json({ error: "Forbidden request: this is not your post !" });
+  }
+};
+
+exports.updateImagePost = async (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
+  const userId = decodedToken.userId;
+  const user = await User.findOne({ where: { _id: userId } });
+  const post = await Post.findOne({ where: { _id: req.params.id } });
+
+  if (!post) return res.status(404).json({ message: "Post not found !" });
+
+  if (user.role === "admin" || user._id == post.creator_id) {
+    if (!req.file) {
+      return res.json({ error: "No image" });
+    } else {
+      const oldImage = post.imgUrl;
+      const oldImagedir = `../front/src/uploads/posts/user_${post.creator_id}/${oldImage}`;
+
+      const newImageDir = `../front/src/uploads/posts/user_${post.creator_id}`;
+      const newFilename = `postid_${post._id}_${req.file.filename}`;
+
+      fs.readFile(
+        `${newImageDir}/${req.file.filename}`,
+        function (error, data) {
+          if (error) throw error;
+
+          fs.writeFile(`${newImageDir}/${newFilename}`, data, function (error) {
+            if (error) throw error;
+          });
+        }
+      );
+
+      post
+        .update({ imgUrl: newFilename })
+        .then(() => {
+          try {
+            fs.unlink(oldImagedir, () => {
+              console.log("Old image deleted !");
+            });
+
+            fs.unlink(`${newImageDir}/${req.file.filename}`, () => {
+              console.log("multer image deleted !");
+            });
+          } catch (error) {
+            return res.send({ error: error });
+          }
+          res.status(200).json(newFilename);
+        })
+        .catch((error) => res.status(400).json({ error }));
+    }
   }
 };
 
@@ -85,21 +165,35 @@ exports.deletePost = async (req, res, next) => {
   const user = await User.findOne({ where: { _id: userId } });
   const post = await Post.findOne({ where: { _id: req.params.id } });
 
-  if (!post) return res.status(404).json({ message: "Post not found !" });
+  if (!post) return res.status(404).json({ error: "Post not found !" });
 
   if (user.role === "admin" || user._id == post.creator_id) {
-    await post
-      .destroy()
-      .then(() => {
-        Post.findAll()
-          .then((posts) => res.status(200).json({ posts }))
-          .catch((error) => res.status(400).json({ error }));
+    if (post.imgUrl) {
+      const postImageDir = `../front/src/uploads/posts/user_${post.creator_id}`;
+      fs.unlink(`${postImageDir}/${post.imgUrl}`, function (error) {
+        if (error) throw error;
+      });
+    }
+
+    await Comment.findAll({ where: { post_id: req.params.id } })
+      .then((comments) => {
+        if (comments) {
+          Comment.destroy({ where: { post_id: req.params.id } });
+        }
+      })
+      .catch((error) => res.status(400).json({ error }));
+
+    await Post.findOne({ where: { _id: req.params.id } })
+      .then((posts) => {
+        if (posts) {
+          Post.destroy({ where: { _id: req.params.id } });
+        }
       })
       .catch((error) => res.status(400).json({ error }));
   } else {
     return res
       .status(403)
-      .json({ message: "Forbidden request: this is not your post !" });
+      .json({ error: "Forbidden request: this is not your post !" });
   }
 };
 
@@ -124,20 +218,6 @@ exports.likePost = async (req, res, next) => {
       .then((updatedPost) => res.status(200).json({ updatedPost }))
       .catch((error) => res.status(400).json({ error }));
   } else {
-    return res.json({ message: "You already like this post !" });
-  }
-};
-
-exports.unlikePost = async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
-  const userId = decodedToken.userId;
-  const user = await User.findOne({ where: { _id: userId } });
-  const post = await Post.findOne({ where: { _id: req.params.id } });
-
-  if (!post) return res.status(404).json({ message: "No post found !" });
-
-  if (post.likers[user._id]) {
     post.likes--;
     post.likers = {
       ...post.likers,
@@ -146,9 +226,8 @@ exports.unlikePost = async (req, res, next) => {
 
     post
       .update({ likes: post.likes, likers: post.likers })
-      .then((updatedPost) => res.status(200).json({ updatedPost }));
-  } else {
-    return res.json({ message: "You already unlike this post !" });
+      .then((updatedPost) => res.status(200).json({ updatedPost }))
+      .catch((error) => res.status(400).json({ error }));
   }
 };
 
@@ -178,46 +257,14 @@ exports.createComment = async (req, res, next) => {
     post_id: req.params.id,
     postCreator_id: post.creator_id,
     commentator_id: user._id,
+    commentator: user.nickname,
+    title: req.body.title,
     content: req.body.content,
   };
 
   await Comment.create(comment)
     .then((newComment) => res.status(200).json({ newComment }))
-    .catch((error) => res.status(400).json({ error }));
-};
-
-exports.updateComment = async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
-  const userId = decodedToken.userId;
-  const user = await User.findOne({ where: { _id: userId } });
-  const post = await Post.findOne({ where: { _id: req.params.id } });
-  const comment = await Comment.findOne({
-    where: { post_id: post._id, _id: req.body.comment_id },
-  });
-
-  if (!post) return res.status(404).json({ message: "Post not found !" });
-  if (!comment) return res.status(404).json({ message: "Comment not found !" });
-
-  if (user.role === "admin" || user._id == comment.commentator_id) {
-    const data = req.body;
-
-    for (let key of Object.keys(data)) {
-      if (!data[key]) {
-        delete data[key];
-      }
-      comment.update({ [key]: data[key] });
-    }
-
-    await comment
-      .save()
-      .then((updatedComment) => res.status(200).json({ updatedComment }))
-      .catch((error) => res.status(404).json({ error }));
-  } else {
-    return res
-      .status(403)
-      .json({ message: "Forbidden request: this is not your comment !" });
-  }
+    .catch(() => res.status(400).json({ error: "Error comment creation" }));
 };
 
 exports.deleteComment = async (req, res, next) => {
@@ -236,17 +283,11 @@ exports.deleteComment = async (req, res, next) => {
   if (user.role === "admin" || user._id == comment.commentator_id) {
     await comment
       .destroy()
-      .then(() => {
-        Comment.findAll({ where: { post_id: req.params.id } })
-          .then((comments) => {
-            res.status(200).json({ comments });
-          })
-          .catch((error) => res.status(400).json({ error }));
-      })
+      .then(() => res.status(200).json("Comment deleted !"))
       .catch((error) => res.status(400).json({ error }));
   } else {
     return res
       .status(403)
-      .json({ message: "Forbidden request: this is not your comment !" });
+      .json({ error: "Forbidden request: this is not your comment !" });
   }
 };
