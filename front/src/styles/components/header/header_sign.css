@@ -1,0 +1,14 @@
+#signHeader {
+  border-bottom: 1px solid #D1515A;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLogo {
+  height: 60px;
+}
+
+.navTitle:hover {
+  transition: 0.3s;
+  color: #D1515A;
+}

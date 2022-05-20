@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AddSessionUser } from "../../providers/providers";
+import "../../styles/components/sign/sign_in.css";
 
 export const Signin = () => {
   const [emailModal, setEmailModal] = useState("");
@@ -47,17 +48,20 @@ export const Signin = () => {
   };
 
   return (
-    <form action="" onSubmit={handleLogin}>
-      <div>
-        <h2>Connexion</h2>
+    <form action="" onSubmit={handleLogin} id="signinForm">
+      <div className="signin__titleDiv">
+        <h2 className="groupiColor">Connexion</h2>
       </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className="signinInputDiv">
+        <label htmlFor="email" className="signinInputDiv__label">
+          Email
+        </label>
         <input
           type="text"
           name="email"
           id="email"
+          className="signinInputDiv__input"
           onChange={(event) => setEmailModal(event.target.value)}
           value={emailModal}
           required
@@ -65,12 +69,15 @@ export const Signin = () => {
         <p id="emailErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="password">Mot de passe</label>
+      <div className="signinInputDiv">
+        <label htmlFor="password" className="signinInputDiv__label">
+          Mot de passe
+        </label>
         <input
           type="password"
           name="password"
           id="password"
+          className="signinInputDiv__input"
           onChange={(event) => setPasswordModal(event.target.value)}
           value={passwordModal}
           required
@@ -78,8 +85,12 @@ export const Signin = () => {
         <p id="passwordErrorMsg"></p>
       </div>
 
-      <div>
-        <input type="submit" value="Se connecter"></input>
+      <div className="signinButtonDiv">
+        <input
+          type="submit"
+          value="Se connecter"
+          className="signinButtonDiv__button"
+        ></input>
       </div>
     </form>
   );

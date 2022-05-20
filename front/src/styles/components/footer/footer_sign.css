@@ -1,0 +1,70 @@
+#signFooter {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-top: 1px solid #D1515A;
+  padding-top: 60px;
+}
+
+#signFooterLinkDiv {
+  display: flex;
+  justify-content: center;
+}
+
+/***************************************************************************** 1st container */
+
+.signFooterAboutDiv {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-right: 15px;
+  align-items: flex-end;
+}
+
+.signFooterAboutDiv__title {
+  margin-bottom: 30px;
+}
+
+.signFooterAboutDiv__li {
+  margin-bottom: 5px;
+}
+
+.signFooterAboutDiv__a {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signFooterAboutDiv__p {
+  text-align: end;
+}
+
+/***************************************************************************** 2nd container */
+
+.signFooterHelpDiv {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 15px;
+}
+
+.signFooterHelpDiv__title {
+  margin-bottom: 30px;
+}
+
+.signFooterHelpDiv__li {
+  margin-bottom: 5px;
+}
+
+/***************************************************************************** 3rd container */
+
+.signFooterLogoDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.signFooterLogoDiv__logo {
+  height: 100px;
+}

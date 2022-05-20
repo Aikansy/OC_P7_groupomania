@@ -3,7 +3,7 @@ import Routes from "../components/routes/routes";
 
 export function App() {
   return (
-    <div>
+    <div id="coreBlock">
       <Routes />
     </div>
   );

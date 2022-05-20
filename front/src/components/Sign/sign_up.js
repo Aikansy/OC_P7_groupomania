@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AddSessionUser } from "../../providers/providers";
 import { SignupformError } from "../../providers/providers";
+import "../../styles/components/sign/sign_up.css";
 
 export const Signup = () => {
   const [nickname, setNickname] = useState("");
@@ -47,17 +48,20 @@ export const Signup = () => {
   };
 
   return (
-    <form action="" onSubmit={handleLogin}>
-      <div>
-        <h2>Inscription</h2>
+    <form action="" onSubmit={handleLogin} id="signupForm">
+      <div className="signupTitleDiv">
+        <h2 className="groupiColor">Inscription</h2>
       </div>
 
-      <div>
-        <label htmlFor="nickname">Nom d'utilisateur</label>
+      <div className="signupInputDiv">
+        <label htmlFor="nickname" className="signupInputDiv__label">
+          Nom d'utilisateur
+        </label>
         <input
           type="text"
           name="nickname"
           id="nickname"
+          className="signupInputDiv__input"
           onChange={(event) => setNickname(event.target.value)}
           value={nickname}
           required
@@ -65,12 +69,15 @@ export const Signup = () => {
         <p id="nicknameErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className="signupInputDiv">
+        <label htmlFor="email" className="signupInputDiv__label">
+          Email
+        </label>
         <input
           type="text"
           name="email"
           id="email"
+          className="signupInputDiv__input"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
           required
@@ -78,12 +85,15 @@ export const Signup = () => {
         <p id="emailErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="password">Mot de passe</label>
+      <div className="signupInputDiv">
+        <label htmlFor="password" className="signupInputDiv__label">
+          Mot de passe
+        </label>
         <input
           type="password"
           name="password"
           id="password"
+          className="signupInputDiv__input"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
           required
@@ -91,12 +101,15 @@ export const Signup = () => {
         <p id="passwordErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="confirmedPassword">Confirmer le mot de passe</label>
+      <div className="signupInputDiv">
+        <label htmlFor="confirmedPassword" className="signupInputDiv__label">
+          Confirmer le mot de passe
+        </label>
         <input
           type="password"
           name="confirmedPassword"
           id="confirmedPassword"
+          className="signupInputDiv__input"
           onChange={(event) => setConfirmedPassword(event.target.value)}
           value={confirmedPassword}
           required
@@ -104,20 +117,27 @@ export const Signup = () => {
         <p id="confirmedPasswordErrorMsg"></p>
       </div>
 
-      <div>
-        <input type="checkbox" id="cgu" />
+      <div className="signupCguDiv">
+        <input type="checkbox" id="cgu" className="signupCguDiv__input" />
         <label htmlFor="cgu">
-          {" "}
-          J'accepte les{" "}
-          <a href="/" target="_blank" rel="noopener noreferrer">
-            conditions générales d'utilisation
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            id="signupCguDiv__label"
+          >
+            J'accepte les conditions générales d'utilisation
           </a>
           <p id="cguErrorMsg"></p>
         </label>
       </div>
 
-      <div>
-        <input type="submit" value="S'inscrire" />
+      <div className="signupButtonDiv">
+        <input
+          type="submit"
+          value="S'inscrire"
+          className="signupButtonDiv__button"
+        />
       </div>
     </form>
   );

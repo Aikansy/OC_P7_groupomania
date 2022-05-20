@@ -1,0 +1,102 @@
+#signSection {
+  width: 100%;
+  background: #112341;
+  border-radius: 25px;
+  margin: 40px 0;
+  height: 1350px;
+  transition: 0.5s;
+}
+
+.background {
+  position: relative;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
+  background-image: url("../../assets/test.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 500px; 
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: -530px;
+  z-index: 9999;
+  padding: 30px;
+}
+
+/***************************************************************************** 1st container */
+
+#signContentDiv {
+  position: relative;
+  top: -10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 520px;
+  border: 1px #aeaeb13b solid;
+  transition: .5s;
+}
+
+#signContentDiv:hover {
+  transition: .5s;
+  border: 1px #ffffff solid;
+  background-color: #00123069;
+}
+
+.signContentDiv__title {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#signContentDiv__text {
+  text-align: center;
+  width: 90%;
+}
+
+/***************************************************************************** 2nd container */
+
+#signButtonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.signButtonDiv__button {
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #AEAEB1;
+  margin: 0px 15px 0px 15px;
+}
+
+.signButtonDiv__button--active {
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 0px 15px 0px 15px;
+  background-color: #D1515A;
+}
+
+.signButtonDiv__button:hover,
+.signButtonDiv__button--active:hover {
+  transition: 0.3s;
+  background-color: #D1515A;
+}
+
+/***************************************************************************** 3rd container */
+
+#signFormDiv {
+  margin-bottom: 60px;
+}

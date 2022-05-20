@@ -1,0 +1,75 @@
+#signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/***************************************************************************** 1st container */
+
+.signupTitleDiv {
+  margin-bottom: 60px;
+}
+
+/***************************************************************************** 2nd container */
+
+.signupInputDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  align-items: center;
+  width: 100%;
+}
+
+.signupInputDiv__label {
+  text-align: center;
+  color: #fff;
+}
+
+.signupInputDiv__input {
+  height: 30px;
+  text-align: center;
+  width: 280px;
+  border-radius: 20px;
+}
+
+/***************************************************************************** 3rd container */
+
+.signupCguDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.signupCguDiv__input {
+  display: flex;
+  width: 30px;
+  height: 17px;
+}
+
+#signupCguDiv__label:hover {
+  transition: 0.3s;
+  color: #D1515A;
+}
+
+/***************************************************************************** 4th container */
+
+.signupButtonDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.signupButtonDiv__button {
+  height: 50px;
+  width: 280px;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: #D1515A;
+}
+
+.signupButtonDiv__button:hover {
+  transition: 0.3s;
+  background-color: #ffffff;
+}

@@ -2,7 +2,7 @@ import { React } from "react";
 import { NavLink } from "react-router-dom";
 import { GetSessionUserId } from "../../providers/providers";
 import { GetSessionUserNickname } from "../../providers/providers";
-import haulerLogo from "../../assets/icon_hauler_001.png";
+import groupiLogo from "../../assets/icon_groupi_001.png";
 import signoutLogo from "../../assets/icon_signout_001.png";
 import profileLogo from "../../assets/icon_profile_001.png";
 
@@ -15,9 +15,9 @@ export const HeaderSite = () => {
   };
 
   return (
-    <nav className="navbar">
+    <header className="navbar">
       <NavLink to="/home">
-        <img src={haulerLogo} alt="Logo Hauler" height={50} />
+        <img src={groupiLogo} alt="Logo Hauler" height={50} />
       </NavLink>
 
       <NavLink to="/home">
@@ -33,6 +33,6 @@ export const HeaderSite = () => {
           <img src={signoutLogo} alt="Se déconnecter" height={35} />
         </NavLink>
       </div>
-    </nav>
+    </header>
   );
 };
