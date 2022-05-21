@@ -23,7 +23,7 @@ export const PageSign = () => {
 
       <div className="content">
         <div id="signContentDiv">
-          <h2 className="signContentDiv__title groupiColor">Groupix</h2>
+          <h2 className="signContentDiv__title groupixColor">Groupix</h2>
           <p id="signContentDiv__text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In feugiat,
             mi at semper pulvinar, velit nunc tincidunt nisl, ac finibus libero

@@ -39,6 +39,12 @@
   text-align: end;
 }
 
+.signFooterAboutDiv__p:hover {
+  transition: .3s;
+  color: #D1515A;
+}
+
+
 /***************************************************************************** 2nd container */
 
 .signFooterHelpDiv {
@@ -54,6 +60,11 @@
 
 .signFooterHelpDiv__li {
   margin-bottom: 5px;
+}
+
+.signFooterHelpDiv__p:hover {
+  transition: .3s;
+  color: #D1515A;
 }
 
 /***************************************************************************** 3rd container */

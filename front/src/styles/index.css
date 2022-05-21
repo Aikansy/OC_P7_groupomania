@@ -27,6 +27,11 @@ body {
   min-height: 100vh;
 }
 
+main {
+  display: flex;
+  justify-content: center;
+}
+
 a {
   color: #fff;
   text-decoration: none;
@@ -56,7 +61,7 @@ ul {
   list-style-type: none
 }
 
-.groupiColor {
+.groupixColor {
   color: #D1515A;
 }
 

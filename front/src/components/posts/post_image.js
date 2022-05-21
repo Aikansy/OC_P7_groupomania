@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/posts/post_image.css";
 
 export function UpdatePostImage(props) {
   const [selectedFile, setSelectedFile] = useState();
@@ -46,28 +47,69 @@ export function UpdatePostImage(props) {
   if (!isLoadedModal) {
     return (
       <div>
-        <div>
+        <div className="articleImageDiv">
           <img
             src={require(`../../uploads/posts/user_${creator_id}/${props.post.imgUrl}`)}
             alt={props.post.title}
+            className="articleImageDiv__image"
           ></img>
         </div>
-        <input type="file" name="file" onChange={changeHandler} />
-        <button onClick={handleSubmission}>Envoyer</button>
+
+        <div className="updatePostImageInputDiv">
+          <label htmlFor="file" className="updatePostImageInputDiv__label">
+            Image (jpg, jpeg, png, gif)
+          </label>
+
+          <input
+            type="file"
+            name="file"
+            onChange={changeHandler}
+            className="updatePostImageInputDiv__file"
+          />
+        </div>
+
+        <div className="updatePostImageButtonDiv">
+          <button
+            onClick={handleSubmission}
+            className="updatePostImageButtonDiv__button"
+          >
+            Envoyer
+          </button>
+        </div>
       </div>
     );
   } else {
     return (
       <div>
-        <div>
+        <div className="articleImageDiv">
           <img
             src={require(`../../uploads/posts/user_${creator_id}/${newImage}`)}
             alt={props.post.title}
+            className="articleImageDiv__image"
           ></img>
         </div>
 
-        <input type="file" name="file" onChange={changeHandler} />
-        <button onClick={handleSubmission}>Envoyer</button>
+        <div className="updatePostImageInputDiv">
+          <label htmlFor="file" className="updatePostImageInputDiv__label">
+            Image (jpg, jpeg, png, gif)
+          </label>
+
+          <input
+            type="file"
+            name="file"
+            onChange={changeHandler}
+            className="updatePostImageInputDiv__file"
+          />
+
+          <div className="updatePostImageButtonDiv">
+            <button
+              onClick={handleSubmission}
+              className="updatePostImageButtonDiv__button"
+            >
+              Envoyer
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

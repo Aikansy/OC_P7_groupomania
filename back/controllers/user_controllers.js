@@ -163,7 +163,7 @@ exports.signin = async (req, res, next) => {
             },
             process.env.RANDOM_TOKEN_SECRET,
             {
-              expiresIn: "2h",
+              expiresIn: "24h",
             }
           );
           user.token = token;

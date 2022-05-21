@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/profile/profile_image.css";
 
 export function UploadProfileImage(props) {
   const [selectedFile, setSelectedFile] = useState();
@@ -40,12 +41,25 @@ export function UploadProfileImage(props) {
 
   return (
     <div>
-      <div>
-        <input type="file" name="file" onChange={changeHandler} />
+      <div className="profilePostImageInputDiv">
+        <label htmlFor="file" className="profilePostImageInputDiv__label">
+          Image (jpg, jpeg, png)
+        </label>
+        <input
+          type="file"
+          name="file"
+          onChange={changeHandler}
+          className="profilePostImageInputDiv__file"
+        />
       </div>
 
-      <div>
-        <button onClick={handleSubmission}>Submit</button>
+      <div className="profilePostImageButtonDiv">
+        <button
+          onClick={handleSubmission}
+          className="profilePostImageButtonDiv__button"
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

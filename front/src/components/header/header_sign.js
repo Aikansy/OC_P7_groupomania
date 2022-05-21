@@ -6,11 +6,11 @@ export const SignHeader = () => {
   return (
     <header id="signHeader">
       <NavLink to="/">
-        <img src={groupixLogo} alt="Logo Groupix" className="navLogo" />
+        <img src={groupixLogo} alt="Logo Groupix" className="siteLogo" />
       </NavLink>
 
       <NavLink to="/">
-        <h1 className="navTitle">Groupix</h1>
+        <h1 className="siteTitle">Groupix</h1>
       </NavLink>
     </header>
   );

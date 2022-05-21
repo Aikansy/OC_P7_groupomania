@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { FormCommentError } from "../../providers/providers";
+import "../../styles/components/comments/comment_create.css";
 
 export const CreateComment = (props) => {
   const [commentTitle, setCommentTitle] = useState("");
@@ -42,13 +43,20 @@ export const CreateComment = (props) => {
   };
 
   return (
-    <form action="" onSubmit={handleModals}>
-      <div>
-        <label htmlFor="commentTitle">Titre</label>
+    <form action="" onSubmit={handleModals} id="commentForm">
+      <div className="createCommentTitleDiv">
+        <h3>POSTER UN COMMENTAIRE</h3>
+      </div>
+
+      <div className="createCommentInputDiv">
+        <label htmlFor="commentTitle" className="createCommentInputDiv__label">
+          Titre
+        </label>
         <input
           type="text"
           name="commentTitle"
           id="commentTitle"
+          className="createCommentInputDiv__input"
           onChange={(e) => setCommentTitle(e.target.value)}
           value={commentTitle}
           required
@@ -56,20 +64,30 @@ export const CreateComment = (props) => {
         <p id="commentTitleErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="commentContent">Message (280 caractères max)</label>
+      <div className="createCommentInputDiv">
+        <label
+          htmlFor="commentContent"
+          className="createCommentInputDiv__label"
+        >
+          Message
+        </label>
         <input
           type="text"
           name="commentContent"
           id="commentContent"
+          className="createCommentInputDiv__input"
           onChange={(e) => setCommentContent(e.target.value)}
           value={commentContent}
         />
         <p id="commentContentErrorMsg"></p>
       </div>
 
-      <div>
-        <input type="submit" value="Commenter"></input>
+      <div className="createCommentButtonDiv">
+        <input
+          type="submit"
+          value="Commenter"
+          className="createCommentButtonDiv__button"
+        ></input>
       </div>
     </form>
   );

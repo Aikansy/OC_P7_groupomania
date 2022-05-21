@@ -1,0 +1,41 @@
+#siteHeader {
+  position: fixed;
+  top: 0;
+  width: 96%;
+  background-color: #0B1A30;
+  border-bottom: 1px solid #D1515A;
+  display: flex;
+  justify-content: space-between;
+}
+
+.siteLogoDiv__logo {
+  height: 60px;
+}
+
+.siteTitleDiv {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 3%;
+}
+
+.siteTitleDiv__title:hover {
+  transition: 0.3s;
+  color: #D1515A;
+}
+
+.siteButtonsDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.siteHeaderUl {
+  display: flex;
+}
+
+.siteHeaderbuttonDiv__button {
+  width: 43px;
+  height: 43px;
+  margin: 15px 7px;
+}

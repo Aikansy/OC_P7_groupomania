@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import "../../styles/components/footer/footer_sign.css";
+import "../../styles/components/footer/footer_site.css";
 import groupomaniaLogo from "../../assets/icon-left-font-monochrome-white.png";
 
-export const SignFooter = () => {
+export const SiteFooter = () => {
   return (
     <footer id="signFooter">
       <div id="signFooterLinkDiv">
@@ -40,17 +40,17 @@ export const SignFooter = () => {
             <ul>
               <li className="signFooterHelpDiv__li">
                 <NavLink to="/">
-                  <p>F.A.Q</p>
+                  <p className="signFooterHelpDiv__p">F.A.Q</p>
                 </NavLink>
               </li>
               <li className="signFooterHelpDiv__li">
                 <NavLink to="/">
-                  <p>Centre d'aide</p>
+                  <p className="signFooterHelpDiv__p">Centre d'aide</p>
                 </NavLink>
               </li>
               <li className="signFooterHelpDiv__li">
                 <NavLink to="#">
-                  <p>Nous contacter</p>
+                  <p className="signFooterHelpDiv__p">Nous contacter</p>
                 </NavLink>
               </li>
             </ul>

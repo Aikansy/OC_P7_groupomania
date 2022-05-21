@@ -10,6 +10,7 @@ import { CreateComment } from "../components/comments/comment_create";
 import { DeleteComment } from "../components/comments/comment_delete";
 import { LikeUnlike } from "../components/posts/post_like";
 import { UpdatePostImage } from "../components/posts/post_image";
+import "../styles/pages/page_post.css";
 
 export const PagePost = () => {
   const [errorModal, setErrorModal] = useState(null);
@@ -81,88 +82,89 @@ export const PagePost = () => {
     return <div>Chargement...</div>;
   } else {
     return (
-      <section>
-        <div>
-          <h2>POST</h2>
+      <section id="postPage">
+        <div className="postPageTitleDiv">
+          <h2 className="groupixColor">POST</h2>
         </div>
 
-        <article key={post._id}>
-          <div>
+        <article key={post._id} className="postArticle">
+          <div className="articleTitleDiv">
             <NavLink to={`/profile/${post.creator}/${post.creator_id}`}>
-              <small>{post.creator}</small>
+              <p className="articleTitleDiv__author">{post.creator}</p>
             </NavLink>
-            <h3>{post.title}</h3>
-          </div>
 
-          {/* <div>
-            <img
-              src={require(`../uploads/posts/user_${post.creator_id}/${post.imgUrl}`)}
-              alt={post.title}
-            ></img>
-          </div> */}
+            <NavLink to={`/post/${post._id}`}>
+              <h3 className="articleTitleDiv__title">{post.title}</h3>
+            </NavLink>
+          </div>
 
           <div>
             <UpdatePostImage post={post} />
           </div>
 
-          <div>
-            <p>{post.message}</p>
+          <div className="articleMessageDiv">
+            <p className="articleMessageDiv__message">{post.message}</p>
           </div>
 
-          <div>
+          <div className="articleFooter">
+            <div className="articleDateDiv">
+              <small>Create: {DateParser(post.createdAt)}</small>
+              <small>Update: {DateParser(post.updatedAt)}</small>
+            </div>
+
             <LikeUnlike post={post} />
           </div>
-
-          <div>
-            <small>Création : {DateParser(post.createdAt)}</small>
-            <small>Modification : {DateParser(post.updatedAt)}</small>
-          </div>
-
-          <div>
-            <button
-              onClick={handleModals}
-              id="comment"
-              className={createCommentModal ? "button--active" : "button"}
-            >
-              Commenter le post
-            </button>
-            <button
-              onClick={handleModals}
-              id="update"
-              className={updatePostModal ? "button--active" : "button"}
-            >
-              Modifier le post
-            </button>
-            <button
-              onClick={handleModals}
-              id="delete"
-              className={deletePostModal ? "button--active" : "button"}
-            >
-              Supprimer le post
-            </button>
-          </div>
         </article>
+
+        <div id="postFeaturesDiv">
+          <button
+            onClick={handleModals}
+            id="comment"
+            className={createCommentModal ? "button--active" : "button"}
+          >
+            Commenter
+          </button>
+
+          <button
+            onClick={handleModals}
+            id="update"
+            className={updatePostModal ? "button--active" : "button"}
+          >
+            Modifier
+          </button>
+
+          <button
+            onClick={handleModals}
+            id="delete"
+            className={deletePostModal ? "button--active" : "button"}
+          >
+            Supprimer
+          </button>
+        </div>
 
         {createCommentModal && <CreateComment post_id={id} />}
         {updatePostModal && <PostUpdate post={post} />}
         {deletePostModal && <PostDelete post_id={id} />}
 
         {commentsModal.map((comment) => (
-          <aside key={comment._id}>
-            <div>
-              <small>{comment.commentator}</small>
-              <h4>{comment.title}</h4>
+          <aside key={comment._id} className="comment">
+            <div className="commentTitleDiv">
+              <NavLink
+                to={`/profile/${comment.commentator}/${comment.commentator_id}`}
+              >
+                <p className="commentTitleDiv__author">{comment.commentator}</p>
+              </NavLink>
+              <h3 className="groupixColor commentTitleDiv__title">
+                {comment.title}
+              </h3>
             </div>
 
-            <div>
-              <p>{comment.content}</p>
+            <div className="commentContentDiv">
+              <p className="commentContentDiv__content">{comment.content}</p>
             </div>
 
-            <div>
-              <small>Création : {DateParser(comment.createdAt)}</small>
-            </div>
-
-            <div>
+            <div className="commentFooter">
+              <small>Create: {DateParser(comment.createdAt)}</small>
               <DeleteComment post_id={id} comment_id={comment._id} />
             </div>
           </aside>

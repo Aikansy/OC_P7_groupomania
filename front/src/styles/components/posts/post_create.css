@@ -1,0 +1,71 @@
+#createPostForm {
+  display: flex;
+  flex-direction: column;
+  border-radius: 25px;
+  padding: 2%;
+  background-color: #112341;
+  transition: .5s;
+}
+
+#createPostForm:hover {
+  transition: .5s;
+  background-color: #0B1A30;
+}
+
+.createPostTitleDiv {
+  border-style: none;
+  margin-bottom: 30px;
+}
+
+.createPostInputDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.createPostInputDiv__label {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.createPostInputDiv__input {
+  height: 30px;
+  border-radius: 20px;
+  border-style: none;
+  padding-left: 10px;
+}
+
+.createPostInputDiv__file {
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+.createPostInputDiv__message {
+  height: 60px;
+  border-radius: 20px;
+  border-style: none;
+  display: flex;
+  word-break: break-word;
+  padding: 10px;
+}
+
+.createPostButtonDiv {
+  display: flex;
+  justify-content: right;
+  margin-top: 30px;
+}
+
+.createPostButtonDiv__button {
+  height: 50px;
+  width: 280px;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: #D1515A;
+  transition: .3s;
+  border-style: none;
+}
+
+.createPostButtonDiv__button:hover {
+  transition: .3s;
+  background-color: #fff;
+}

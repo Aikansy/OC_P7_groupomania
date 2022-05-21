@@ -50,7 +50,7 @@ export const Signin = () => {
   return (
     <form action="" onSubmit={handleLogin} id="signinForm">
       <div className="signin__titleDiv">
-        <h2 className="groupiColor">Connexion</h2>
+        <h2 className="groupixColor">CONNEXION</h2>
       </div>
 
       <div className="signinInputDiv">

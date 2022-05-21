@@ -1,0 +1,14 @@
+.deleteCommentButton {
+  height: 40px;
+  width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #D1515A;
+  border-style: none;
+  transition: .3s;
+}
+
+.deleteCommentButton:hover {
+  background-color: #fff;
+  transition: .3s;
+}

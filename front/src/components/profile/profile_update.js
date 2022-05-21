@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { UpdateSessionUserNickname } from "../../providers/providers";
+import "../../styles/components/profile/profile_update.css";
 
 export const ProfileUpdate = (props) => {
   const [nickname, setNickname] = useState("");
@@ -58,75 +59,96 @@ export const ProfileUpdate = (props) => {
   };
 
   return (
-    <form action="" onSubmit={handleModals}>
-      <div>
-        <h3>Modifier mon profil</h3>
+    <form action="" onSubmit={handleModals} id="updateProfileForm">
+      <div className="updateProfileTitleDiv">
+        <h3>MODIFIER MON PROFIL</h3>
       </div>
 
-      <div>
-        <label htmlFor="nickname">Nom d'utilisateur</label>
+      <div className="updateProfileInputDiv">
+        <label htmlFor="nickname" className="updateProfileInputDiv__label">
+          Nom d'utilisateur
+        </label>
         <input
           type="text"
           name="nickname"
           id="nickname"
+          className="updateProfileInputDiv__input"
           onChange={(event) => setNickname(event.target.value)}
           value={nickname}
         />
         <p id="nicknameErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className="updateProfileInputDiv">
+        <label htmlFor="email" className="updateProfileInputDiv__label">
+          Email
+        </label>
         <input
           type="text"
           name="email"
           id="email"
+          className="updateProfileInputDiv__input"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
         />
         <p id="emailErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="password">Nouveau mot de passe</label>
+      <div className="updateProfileInputDiv">
+        <label htmlFor="password" className="updateProfileInputDiv__label">
+          Nouveau mot de passe
+        </label>
         <input
           type="password"
           name="password"
           id="password"
+          className="updateProfileInputDiv__input"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
         />
         <p id="passwordErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="confirmedPassword">
+      <div className="updateProfileInputDiv">
+        <label
+          htmlFor="confirmedPassword"
+          className="updateProfileInputDiv__label"
+        >
           Confirmer le nouveau mot de passe
         </label>
         <input
           type="password"
           name="confirmedPassword"
           id="confirmedPassword"
+          className="updateProfileInputDiv__input"
           onChange={(event) => setConfirmedPassword(event.target.value)}
           value={confirmedPassword}
         />
         <p id="confirmedPasswordErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="description">Description</label>
+      <div className="updateProfileInputDiv">
+        <label htmlFor="description" className="updateProfileInputDiv__label">
+          Description
+        </label>
         <input
           type="text"
           name="description"
           id="description"
+          className="updateProfileInputDiv__input"
           onChange={(event) => setDescription(event.target.value)}
           value={description}
         />
         <p id="descriptionErrorMsg"></p>
       </div>
 
-      <div>
-        <input type="submit" value="Mettre à jour" id="update"></input>
+      <div className="updateProfileButtonDiv">
+        <input
+          type="submit"
+          value="Mettre à jour"
+          id="update"
+          className="updateProfileButtonDiv__button"
+        ></input>
       </div>
     </form>
   );

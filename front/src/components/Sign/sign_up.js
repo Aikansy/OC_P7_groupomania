@@ -50,7 +50,7 @@ export const Signup = () => {
   return (
     <form action="" onSubmit={handleLogin} id="signupForm">
       <div className="signupTitleDiv">
-        <h2 className="groupiColor">Inscription</h2>
+        <h2 className="groupixColor">INSCRIPTION</h2>
       </div>
 
       <div className="signupInputDiv">

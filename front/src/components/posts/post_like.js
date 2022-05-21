@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/posts/post_like.css";
 
 export const LikeUnlike = (props) => {
   const [initalLikeModal, setInitialLikeModal] = useState(true);

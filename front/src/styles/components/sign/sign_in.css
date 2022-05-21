@@ -30,6 +30,7 @@
   text-align: center;
   width: 280px;
   border-radius: 20px;
+  border-style: none;
 }
 
 /***************************************************************************** 3rd container */
@@ -46,6 +47,7 @@
   border-radius: 25px;
   cursor: pointer;
   background-color: #D1515A;
+  border-style: none;
 }
 
 .signinButtonDiv__button:hover {

@@ -1,10 +1,9 @@
 #signSection {
-  width: 100%;
+  width: 85%;
   background: #112341;
   border-radius: 25px;
   margin: 40px 0;
   height: 1350px;
-  transition: 0.5s;
 }
 
 .background {
@@ -13,7 +12,7 @@
   right: 0;
   z-index: 1;
   display: block;
-  background-image: url("../../assets/test.jpg");
+  background-image: url("../../assets/sign_background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -29,7 +28,7 @@
   right: 0;
   top: -530px;
   z-index: 9999;
-  padding: 30px;
+  padding: 2%;
 }
 
 /***************************************************************************** 1st container */
@@ -49,7 +48,7 @@
 #signContentDiv:hover {
   transition: .5s;
   border: 1px #ffffff solid;
-  background-color: #00123069;
+  background-color: #001230a2;
 }
 
 .signContentDiv__title {
@@ -76,8 +75,9 @@
   width: 200px;
   border-radius: 50px;
   cursor: pointer;
-  background-color: #AEAEB1;
-  margin: 0px 15px 0px 15px;
+  background-color: #fff;
+  margin: 0px 10px 0px 10px;
+  border-style: none;
 }
 
 .signButtonDiv__button--active {
@@ -85,8 +85,9 @@
   width: 200px;
   border-radius: 50px;
   cursor: pointer;
-  margin: 0px 15px 0px 15px;
+  margin: 0px 10px 0px 10px;
   background-color: #D1515A;
+  border-style: none;
 }
 
 .signButtonDiv__button:hover,

@@ -1,0 +1,48 @@
+.articleImageDiv {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.articleImageDiv__image {
+  object-fit: contain;
+  max-width: 100%;
+}
+
+.updatePostImageInputDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin-top: 5%;
+}
+
+.updatePostImageInputDiv__label {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.updatePostImageInputDiv__file {
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+.updatePostImageButtonDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.updatePostImageButtonDiv__button {
+  height: 40px;
+  width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #D1515A;
+  border-style: none;
+  transition: .3s;
+}
+
+.updatePostImageButtonDiv__button:hover {
+  background-color: #fff;
+  transition: .3s;
+}

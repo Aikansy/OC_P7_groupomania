@@ -1,4 +1,5 @@
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/posts/post_delete.css";
 
 export const PostDelete = (props) => {
   const handleDeletePost = async (e) => {
@@ -28,14 +29,22 @@ export const PostDelete = (props) => {
   };
 
   return (
-    <div>
-      <p>
-        Êtes-vous sûr de vouloir supprimer ce post ? <br />
-        L'ensemble des commentaires associés seront également supprimer.
+    <div id="deletePostForm">
+      <div className="deletePostTitleDiv">
+        <h3>SUPPRIMER LE POST</h3>
+      </div>
+
+      <p className="deletePostMessageDiv">
+        Êtes-vous sûr de vouloir supprimer ce post ? L'ensemble des commentaires
+        associés seront également supprimés.
       </p>
 
-      <div>
-        <button onClick={handleDeletePost} id="deletePostButton">
+      <div className="deletePostButtonDiv">
+        <button
+          onClick={handleDeletePost}
+          id="deletePostButton"
+          className="deletePostButtonDiv__button"
+        >
           Supprimer le post
         </button>
       </div>

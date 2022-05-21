@@ -6,6 +6,7 @@ import { DateParser } from "../providers/providers";
 import { ProfileUpdate } from "../components/profile/profile_update";
 import { ProfileDelete } from "../components/profile/profile_delete";
 import { UploadProfileImage } from "../components/profile/profile_image";
+import "../styles/pages/page_profile.css";
 
 export const PageProfile = () => {
   const [errorModal, setErrorModal] = useState(null);
@@ -59,39 +60,47 @@ export const PageProfile = () => {
     return <div>Chargement...</div>;
   } else {
     return (
-      <section>
-        <div>
+      <section id="profilePage">
+        <div className="profilePageTitleDiv">
           <h2>
-            PROFILE : {profileModal.nickname}#{id}
+            TAG : {profileModal.nickname}#{id}
           </h2>
         </div>
 
-        <article id={profileModal._id}>
-          <div>
+        <article id={profileModal._id} className="profileArticle">
+          <div className="profileImageDiv">
             <img
               src={require(`../uploads/profils/user_${id}/profile_${id}.jpg`)}
               alt={profileModal.nickname}
+              className="profileImageDiv__image"
             />
           </div>
 
-          <div>
-            <UploadProfileImage profile={profileModal} />
-          </div>
+          <UploadProfileImage profile={profileModal} />
 
-          <div>
-            <p>Email: {profileModal.email}</p>
-            <p>Bio: {profileModal.description}</p>
-            <p>Membre depuis le : {DateParser(profileModal.createdAt)}</p>
+          <div className="profileContentDiv">
+            <p className="profileContentDiv__email">
+              Email: <br />
+              {profileModal.email}
+            </p>
+            <p className="profileContentDiv__bio">
+              Bio: <br />
+              {profileModal.description}
+            </p>
+            <p className="profileContentDiv__date">
+              Membre depuis le : <br />
+              {DateParser(profileModal.createdAt)}
+            </p>
           </div>
         </article>
 
-        <div>
+        <div className="profileFeaturesDiv">
           <button
             onClick={handleModals}
             id="update"
             className={updateProfileModal ? "button--active" : "button"}
           >
-            Modifier mon profil
+            Modifier
           </button>
 
           <button
@@ -99,7 +108,7 @@ export const PageProfile = () => {
             id="delete"
             className={deleteProfileModal ? "button--active" : "button"}
           >
-            Supprimer mon compte
+            Supprimer
           </button>
         </div>
 

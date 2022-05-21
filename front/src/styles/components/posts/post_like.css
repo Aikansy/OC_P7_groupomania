@@ -1,0 +1,14 @@
+#likesButton {
+  height: 40px;
+  width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #D1515A;
+  border-style: none;
+  transition: .3s;
+}
+
+#likesButton:hover {
+  background-color: #fff;
+  transition: .3s;
+}

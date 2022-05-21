@@ -1,0 +1,36 @@
+.profilePostImageInputDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin-top: 5%;
+}
+
+.profilePostImageInputDiv__label {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.profilePostImageInputDiv__file {
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+.profilePostImageButtonDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profilePostImageButtonDiv__button {
+  height: 40px;
+  width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #D1515A;
+  border-style: none;
+  transition: .3s;
+}
+
+.profilePostImageButtonDiv__button:hover {
+  background-color: #fff;
+  transition: .3s;
+}

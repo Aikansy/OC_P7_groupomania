@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { GetSessionUserId } from "../../providers/providers";
+import "../../styles/components/posts/post_create.css";
 
 export const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
@@ -42,13 +43,25 @@ export const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={submit} method="post" encType="multipart/form-data">
-      <div>
-        <label htmlFor="postTitle">Titre</label>
+    <form
+      onSubmit={submit}
+      method="post"
+      encType="multipart/form-data"
+      id="createPostForm"
+    >
+      <div className="createPostTitleDiv">
+        <h3>POSTER UN MESSAGE</h3>
+      </div>
+
+      <div className="createPostInputDiv">
+        <label htmlFor="postTitle" className="createPostInputDiv__label">
+          Titre
+        </label>
         <input
           type="text"
           name="postTitle"
           id="postTitle"
+          className="createPostInputDiv__input"
           value={postTitle}
           onChange={(e) => setPostTitle(e.target.value)}
           required
@@ -56,28 +69,38 @@ export const CreatePost = () => {
         <p id="postTitleErrorMsg"></p>
       </div>
 
-      <div>
+      <div className="createPostInputDiv">
+        <label htmlFor="file" className="createPostInputDiv__label">
+          Image (jpg, jpeg, png, gif)
+        </label>
         <input
           type="file"
           name="file"
+          id="file"
+          className="createPostInputDiv__file"
           onChange={(e) => setPostImgUrl(e.target.files[0])}
         />
       </div>
 
-      <div>
-        <label htmlFor="postMessage">Message (280 caractères max)</label>
+      <div className="createPostInputDiv">
+        <label htmlFor="postTitle" className="createPostInputDiv__label">
+          Message
+        </label>
         <input
           type="text"
           name="postMessage"
           id="postMessage"
+          className="createPostInputDiv__message"
           onChange={(e) => setPostMessage(e.target.value)}
           value={postMessage}
         />
         <p id="postMessageErrorMsg"></p>
       </div>
 
-      <div>
-        <button type="submit">Submit</button>
+      <div className="createPostButtonDiv">
+        <button type="submit" className="createPostButtonDiv__button">
+          Poster
+        </button>
       </div>
     </form>
   );

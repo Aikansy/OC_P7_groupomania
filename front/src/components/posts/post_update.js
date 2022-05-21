@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { FormPostError } from "../../providers/providers";
+import "../../styles/components/posts/post_update.css";
 
 export const PostUpdate = (props) => {
   const [postTitle, setPostTitle] = useState("");
@@ -42,33 +43,47 @@ export const PostUpdate = (props) => {
   };
 
   return (
-    <form action="" onSubmit={handleModals}>
-      <div>
-        <label htmlFor="postTitle">Titre</label>
+    <form action="" onSubmit={handleModals} id="updatePostForm">
+      <div className="updatePostTitleDiv">
+        <h3>MODIFIER LE POST</h3>
+      </div>
+
+      <div className="updatePostInputDiv">
+        <label htmlFor="postTitle" className="updatePostInputDiv__label">
+          Titre
+        </label>
         <input
           type="text"
           name="postTitle"
           id="postTitle"
+          className="updatePostInputDiv__input"
           onChange={(e) => setPostTitle(e.target.value)}
           value={postTitle}
         />
         <p id="postTitleErrorMsg"></p>
       </div>
 
-      <div>
-        <label htmlFor="postMessage">Message (280 caractères max)</label>
+      <div className="updatePostInputDiv">
+        <label htmlFor="postMessage" className="updatePostInputDiv__label">
+          Message
+        </label>
         <input
           type="text"
           name="postMessage"
           id="postMessage"
+          className="updatePostInputDiv__input"
           onChange={(e) => setPostMessage(e.target.value)}
           value={postMessage}
         />
         <p id="postMessageErrorMsg"></p>
       </div>
 
-      <div>
-        <input type="submit" value="Poster"></input>
+      <div className="updatePostButtonDiv">
+        <input
+          type="submit"
+          value="Poster"
+          className="updatePostButtonDiv__button"
+        ></input>
       </div>
     </form>
   );

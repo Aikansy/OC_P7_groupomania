@@ -5,6 +5,7 @@ import { GetSessionUserToken } from "../providers/providers";
 import { DateParser } from "../providers/providers";
 import { CreatePost } from "../components/posts/post_create";
 import { LikeUnlike } from "../components/posts/post_like";
+import "../styles/pages/page_home.css";
 
 export const PageHome = () => {
   const [errorModal, setErrorModal] = useState(null);
@@ -44,50 +45,47 @@ export const PageHome = () => {
     return <div>Chargement...</div>;
   } else {
     return (
-      <section>
-        <div>
-          <h2>TRENDING</h2>
+      <section id="trendingSection">
+        <div id="trendingTitleDiv">
+          <h2 className="groupixColor">TRENDING</h2>
         </div>
 
-        <div>
+        <div id="createPostDiv">
           <CreatePost />
         </div>
 
         <div>
           {postsModal.map((post) => (
-            <article key={post._id}>
-              <div>
+            <article key={post._id} className="postArticle">
+              <div className="articleTitleDiv">
                 <NavLink to={`/profile/${post.creator}/${post.creator_id}`}>
-                  <small>{post.creator}</small>
+                  <p className="articleTitleDiv__author">{post.creator}</p>
                 </NavLink>
+
                 <NavLink to={`/post/${post._id}`}>
-                  <h3>{post.title}</h3>
+                  <h3 className="articleTitleDiv__title">{post.title}</h3>
                 </NavLink>
               </div>
 
-              <NavLink to={`/post/${post._id}`}>
-                <div>
+              <NavLink to={`/post/${post._id}`} className="articleContentDiv">
+                <div className="articleImageDiv">
                   <img
                     src={require(`../uploads/posts/user_${post.creator_id}/${post.imgUrl}`)}
                     alt={post.title}
+                    className="articleImageDiv__image"
                   ></img>
                 </div>
 
-                {
-                  // import {} from "../uploads/posts/user_1/postid_1_creatorid_1.gif"
-                }
-
-                <div>
-                  <p>{post.message}</p>
-                </div>
-
-                <div>
-                  <small>Création : {DateParser(post.createdAt)}</small>
-                  <small>Modification : {DateParser(post.updatedAt)}</small>
+                <div className="articleMessageDiv">
+                  <p className="articleMessageDiv__message">{post.message}</p>
                 </div>
               </NavLink>
 
-              <div>
+              <div className="articleFooter">
+                <div className="articleDateDiv">
+                  <small>Create: {DateParser(post.createdAt)}</small>
+                  <small>Update: {DateParser(post.updatedAt)}</small>
+                </div>
                 <LikeUnlike post={post} />
               </div>
             </article>

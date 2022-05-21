@@ -1,4 +1,5 @@
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/profile/profile_delete.css";
 
 export const ProfileDelete = (props) => {
   const handleDeleteProfile = async (e) => {
@@ -30,20 +31,22 @@ export const ProfileDelete = (props) => {
   };
 
   return (
-    <div>
-      <div>
+    <div id="deleteProfileForm">
+      <div className="deleteProfileTitleDiv">
         <h3>Supprimer mon profil</h3>
       </div>
 
-      <div>
-        <p>
-          Êtes-vous sûr de vouloir supprimer votre compte ? <br />
-          L'ensemble de vos posts et commentaires seront également supprimer.
-        </p>
-      </div>
+      <p className="deleteProfileMessageDiv">
+        Êtes-vous sûr de vouloir supprimer votre compte ? L'ensemble de vos
+        posts et commentaires seront également supprimer.
+      </p>
 
-      <div>
-        <button onClick={handleDeleteProfile} id="deleteUserButton">
+      <div className="deleteProfileButtonDiv">
+        <button
+          onClick={handleDeleteProfile}
+          id="deleteUserButton"
+          className="deleteProfileButtonDiv__button"
+        >
           Supprimer
         </button>
       </div>

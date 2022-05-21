@@ -1,0 +1,51 @@
+#commentForm {
+  border-radius: 25px;
+  background-color: #0B1A30;
+  padding: 5%;
+  color: #fff;
+  margin-top: 30px;
+}
+
+.createCommentTitleDiv {
+  border-style: none;
+  margin-bottom: 30px;
+}
+
+.createCommentInputDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.createCommentInputDiv__label {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.createCommentInputDiv__input {
+  height: 30px;
+  border-radius: 20px;
+  border-style: none;
+  padding-left: 10px;
+}
+
+.createCommentButtonDiv {
+  display: flex;
+  justify-content: right;
+  margin-top: 30px;
+}
+
+.createCommentButtonDiv__button {
+  height: 50px;
+  width: 280px;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: #D1515A;
+  transition: .3s;
+  border-style: none;
+}
+
+.createCommentButtonDiv__button:hover {
+  transition: .3s;
+  background-color: #fff;
+}

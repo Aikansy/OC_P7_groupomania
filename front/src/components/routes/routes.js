@@ -9,9 +9,9 @@ import { PageSign } from "../../pages/page_sign";
 import { PageHome } from "../../pages/page_home";
 import { PageProfile } from "../../pages/page_profile";
 import { PagePost } from "../../pages/page_post";
-import { HeaderSite } from "../header/header_site";
+import { SiteHeader } from "../header/header_site";
 import { SignHeader } from "../header/header_sign";
-import { SignFooter } from "../footer/footer_sign";
+import { SiteFooter } from "../footer/footer_site";
 
 const index = () => {
   return (
@@ -36,7 +36,7 @@ function SignChild() {
       <main>
         <PageSign />
       </main>
-      <SignFooter />
+      <SiteFooter />
     </>
   );
 }
@@ -44,10 +44,11 @@ function SignChild() {
 function PostChild() {
   return (
     <>
-      <HeaderSite />
+      <SiteHeader />
       <main>
         <PagePost />
       </main>
+      <SiteFooter />
     </>
   );
 }
@@ -55,10 +56,11 @@ function PostChild() {
 function ProfileChild() {
   return (
     <>
-      <HeaderSite />
+      <SiteHeader />
       <main>
         <PageProfile />
       </main>
+      <SiteFooter />
     </>
   );
 }
@@ -66,10 +68,11 @@ function ProfileChild() {
 function HomeChild() {
   return (
     <>
-      <HeaderSite />
+      <SiteHeader />
       <main>
         <PageHome />
       </main>
+      <SiteFooter />
     </>
   );
 }

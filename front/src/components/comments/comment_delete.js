@@ -1,4 +1,5 @@
 import { GetSessionUserToken } from "../../providers/providers";
+import "../../styles/components/comments/comment_delete.css";
 
 export const DeleteComment = (props) => {
   const handleModals = async (e) => {
@@ -34,5 +35,9 @@ export const DeleteComment = (props) => {
     }
   };
 
-  return <button onClick={handleModals}>Supprimer</button>;
+  return (
+    <button onClick={handleModals} className="deleteCommentButton">
+      Supprimer
+    </button>
+  );
 };
