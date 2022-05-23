@@ -48,7 +48,7 @@ export const Signin = () => {
   };
 
   return (
-    <form action="" onSubmit={handleLogin} id="signinForm">
+    <form onSubmit={handleLogin} id="signinForm">
       <div className="signin__titleDiv">
         <h2 className="groupixColor">CONNEXION</h2>
       </div>

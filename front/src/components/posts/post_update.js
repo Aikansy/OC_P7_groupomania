@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { FormPostError } from "../../providers/providers";
+import { UpdatePostImage } from "./post_image";
 import "../../styles/components/posts/post_update.css";
 
 export const PostUpdate = (props) => {
@@ -8,6 +9,7 @@ export const PostUpdate = (props) => {
   const [postMessage, setPostMessage] = useState("");
 
   const post_id = parseInt(props.post._id);
+  const post = props.post;
   const sessionToken = GetSessionUserToken();
 
   const handleModals = async (e) => {
@@ -37,13 +39,15 @@ export const PostUpdate = (props) => {
           return alert("Vous ne pouvez modifier ce post !");
         }
       } else {
-        window.location = "/home";
+        window.location = `/post/${post_id}`;
       }
     }
   };
 
   return (
-    <form action="" onSubmit={handleModals} id="updatePostForm">
+    <form onSubmit={handleModals} id="updatePostForm">
+      <UpdatePostImage post={post} />
+
       <div className="updatePostTitleDiv">
         <h3>MODIFIER LE POST</h3>
       </div>

@@ -4,8 +4,8 @@ import { Signin } from "../components/sign/sign_in";
 import "../styles/pages/page_sign.css";
 
 export const PageSign = () => {
-  const [signupModal, setSignupModal] = useState(true);
-  const [signinModal, setSigninModal] = useState(false);
+  const [signupModal, setSignupModal] = useState(false);
+  const [signinModal, setSigninModal] = useState(true);
 
   const handleModals = (e) => {
     if (e.target.id === "signup") {

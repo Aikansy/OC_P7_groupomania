@@ -155,7 +155,7 @@ export const FormProfileError = () => {
   }
 
   if (description) {
-    if (!description.match(/^[\dA-Za-zÜ-ü,\:'\/#\.\s\?!)(-]{2,280}$/)) {
+    if (!description.match(/^[\dA-Za-zÜ-ü,:'./#\s?!)(-]{2,280}$/)) {
       descriptionError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
       error = true;
     } else {
@@ -168,37 +168,30 @@ export const FormProfileError = () => {
 
 export const FormPostError = () => {
   const title = document.querySelector("#postTitle").value;
-  // const img = document.querySelector("#postImgUrl").value;
-  // const message = document.querySelector("#postMessage").value;
+  const message = document.querySelector("#postMessage").value;
 
   const titleError = document.querySelector("#postTitleErrorMsg");
-  // const imgError = document.querySelector("#postImgUrlErrorMsg");
-  // const messageError = document.querySelector("#postMessageErrorMsg");
+  const messageError = document.querySelector("#postMessageErrorMsg");
 
   let error = false;
 
-  if (!title.match(/^[\dA-Za-zÜ-ü'\/#\.\s\?!)(-]{0,100}$/)) {
-    titleError.textContent = `Caractères acceptés : min: 2, max: 100, chiffres, lettres majuscules et minuscules, accents, apostrophe, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
-    error = true;
-  } else {
-    titleError.textContent = "";
+  if (title) {
+    if (!title.match(/^[\dA-Za-zÜ-ü"'/#.\s?!)(-]{2,100}$/)) {
+      titleError.textContent = `Caractères acceptés : min: 2, max: 100, chiffres, lettres majuscules et minuscules, accents, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
+      error = true;
+    } else {
+      titleError.textContent = "";
+    }
   }
 
-  // if (img) {
-  //   if (!img.match(/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/)) {
-  //     imgError.textContent = `Formats d'images acceptés: png, jpg, jpeg, gif, svg.`;
-  //     error = true;
-  //   } else {
-  //     imgError.textContent = "";
-  //   }
-  // }
-
-  // if (!message.match(/^[\dA-Za-zÜ-ü,\:'\/#\.\s\?!)(-]{2,280}$/)) {
-  //   messageError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
-  //   error = true;
-  // } else {
-  //   messageError.textContent = "";
-  // }
+  if (message) {
+    if (!message.match(/^[\dA-Za-zÜ-ü,:"'/#.\s?!)(-]{2,280}$/)) {
+      messageError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
+      error = true;
+    } else {
+      messageError.textContent = "";
+    }
+  }
 
   return error;
 };
@@ -212,15 +205,15 @@ export const FormCommentError = () => {
 
   let error = false;
 
-  if (!title.match(/^[\dA-Za-zÜ-ü'\/#\.\s\?!)(-]{2,100}$/)) {
-    titleError.textContent = `Caractères acceptés : min: 2, max: 100, chiffres, lettres majuscules et minuscules, accents, apostrophe, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
+  if (!title.match(/^[\dA-Za-zÜ-ü"'/#.\s?!)(-]{2,100}$/)) {
+    titleError.textContent = `Caractères acceptés : min: 2, max: 100, chiffres, lettres majuscules et minuscules, accents, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
     error = true;
   } else {
     titleError.textContent = "";
   }
 
-  if (!content.match(/^[\dA-Za-zÜ-ü,\:'\/#\.\s\?!)(-]{2,280}$/)) {
-    contentError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
+  if (!content.match(/^[\dA-Za-zÜ-ü,:"'/#.\s?!)(-]{2,280}$/)) {
+    contentError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
     error = true;
   } else {
     contentError.textContent = "";

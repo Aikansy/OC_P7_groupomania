@@ -23,6 +23,8 @@ export const ProfileDelete = (props) => {
     if (result.error) {
       if (result.error.includes("Forbidden")) {
         return alert("Vous ne pouvez modifier ce compte !");
+      } else {
+        console.log(result.error);
       }
     } else {
       localStorage.clear("hauler_user");

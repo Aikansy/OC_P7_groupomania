@@ -5,7 +5,6 @@ import { GetSessionUserToken } from "../providers/providers";
 import { DateParser } from "../providers/providers";
 import { ProfileUpdate } from "../components/profile/profile_update";
 import { ProfileDelete } from "../components/profile/profile_delete";
-import { UploadProfileImage } from "../components/profile/profile_image";
 import "../styles/pages/page_profile.css";
 
 export const PageProfile = () => {
@@ -19,11 +18,22 @@ export const PageProfile = () => {
 
   const handleModals = (event) => {
     if (event.target.id === "update") {
-      setUpdateProfileModal(true);
-      setDeleteProfileModal(false);
-    } else if (event.target.id === "delete") {
-      setUpdateProfileModal(false);
-      setDeleteProfileModal(true);
+      if (updateProfileModal === false) {
+        setUpdateProfileModal(true);
+        setDeleteProfileModal(false);
+      } else {
+        setUpdateProfileModal(false);
+        setDeleteProfileModal(false);
+      }
+    }
+    if (event.target.id === "delete") {
+      if (deleteProfileModal === false) {
+        setUpdateProfileModal(false);
+        setDeleteProfileModal(true);
+      } else {
+        setUpdateProfileModal(false);
+        setDeleteProfileModal(false);
+      }
     }
   };
 
@@ -76,9 +86,10 @@ export const PageProfile = () => {
             />
           </div>
 
-          <UploadProfileImage profile={profileModal} />
-
           <div className="profileContentDiv">
+            <div className="profileContentDiv__title">
+              <h3>{profileModal.nickname}</h3>
+            </div>
             <p className="profileContentDiv__email">
               Email: <br />
               {profileModal.email}

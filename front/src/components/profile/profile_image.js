@@ -41,6 +41,10 @@ export function UploadProfileImage(props) {
 
   return (
     <div>
+      <div className="updateProfileImageTitleDiv">
+        <h3>MODIFIER L'IMAGE DE PROFIL</h3>
+      </div>
+
       <div className="profilePostImageInputDiv">
         <label htmlFor="file" className="profilePostImageInputDiv__label">
           Image (jpg, jpeg, png)
@@ -48,6 +52,7 @@ export function UploadProfileImage(props) {
         <input
           type="file"
           name="file"
+          id="file"
           onChange={changeHandler}
           className="profilePostImageInputDiv__file"
         />
@@ -58,7 +63,7 @@ export function UploadProfileImage(props) {
           onClick={handleSubmission}
           className="profilePostImageButtonDiv__button"
         >
-          Submit
+          Modifier
         </button>
       </div>
     </div>

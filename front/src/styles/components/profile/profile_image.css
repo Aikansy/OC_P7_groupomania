@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-  margin-top: 5%;
+}
+
+.updateProfileImageTitleDiv {
+  margin-bottom: 30px;
 }
 
 .profilePostImageInputDiv__label {
@@ -13,21 +16,24 @@
 .profilePostImageInputDiv__file {
   border-radius: 25px;
   background-color: #fff;
+  color: black;
 }
 
 .profilePostImageButtonDiv {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 30px;
 }
 
 .profilePostImageButtonDiv__button {
-  height: 40px;
-  width: 120px;
-  border-radius: 50px;
+  height: 50px;
+  width: 280px;
+  border-radius: 25px;
   cursor: pointer;
   background-color: #D1515A;
-  border-style: none;
   transition: .3s;
+  border-style: none;
+  margin-top: 15px;
 }
 
 .profilePostImageButtonDiv__button:hover {

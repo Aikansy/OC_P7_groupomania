@@ -13,7 +13,7 @@ router.get("/:id", postControllers.FindOnePost);
 router.post("/", auth, multer, postControllers.createPost);
 router.put("/:id", auth, postControllers.updatePost);
 router.post("/:id", auth, checkRights, multer, postControllers.updateImagePost);
-router.delete("/:id", auth, postControllers.deletePost);
+router.delete("/:id", auth, checkRights, postControllers.deletePost);
 
 router.patch("/:id/like", auth, postControllers.likePost);
 

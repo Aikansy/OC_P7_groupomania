@@ -10,7 +10,18 @@ import "../styles/pages/page_home.css";
 export const PageHome = () => {
   const [errorModal, setErrorModal] = useState(null);
   const [isLoadedModal, setIsLoadedModal] = useState(false);
+  const [createPostModal, setCreatePostModal] = useState(false);
   const [postsModal, setPostsModal] = useState([]);
+
+  const handleCreatePostModal = (e) => {
+    if (e.target.id === "create") {
+      if (createPostModal === false) {
+        setCreatePostModal(true);
+      } else {
+        setCreatePostModal(false);
+      }
+    }
+  };
 
   useEffect(() => {
     const sessionToken = GetSessionUserToken();
@@ -50,9 +61,21 @@ export const PageHome = () => {
           <h2 className="groupixColor">TRENDING</h2>
         </div>
 
-        <div id="createPostDiv">
-          <CreatePost />
+        <div id="createPostButtonDiv">
+          <button
+            onClick={handleCreatePostModal}
+            id="create"
+            className={createPostModal ? "button--active" : "button"}
+          >
+            Créer un post
+          </button>
         </div>
+
+        {createPostModal && (
+          <div id="createPostDiv">
+            <CreatePost />
+          </div>
+        )}
 
         <div>
           {postsModal.map((post) => (

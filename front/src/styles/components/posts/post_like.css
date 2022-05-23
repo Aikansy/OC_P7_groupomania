@@ -1,4 +1,4 @@
-#likesButton {
+.likesButton {
   height: 40px;
   width: 120px;
   border-radius: 50px;
@@ -8,7 +8,7 @@
   transition: .3s;
 }
 
-#likesButton:hover {
+.likesButton:hover {
   background-color: #fff;
   transition: .3s;
 }

@@ -1,13 +1,9 @@
-.articleImageDiv {
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.updatePostImageDiv {
+  margin-bottom: 30px;
 }
 
-.articleImageDiv__image {
-  object-fit: contain;
-  max-width: 100%;
+.updatePostImageTitleDiv {
+  margin-bottom: 30px;
 }
 
 .updatePostImageInputDiv {
@@ -25,17 +21,19 @@
 .updatePostImageInputDiv__file {
   border-radius: 25px;
   background-color: #fff;
+  color: black;
 }
 
 .updatePostImageButtonDiv {
   display: flex;
   justify-content: flex-end;
+  margin-top: 30px;
 }
 
 .updatePostImageButtonDiv__button {
-  height: 40px;
-  width: 120px;
-  border-radius: 50px;
+  height: 50px;
+  width: 280px;
+  border-radius: 25px;
   cursor: pointer;
   background-color: #D1515A;
   border-style: none;

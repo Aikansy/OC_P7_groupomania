@@ -37,6 +37,10 @@
   margin-top: 30px;
 }
 
+.profileContentDiv__title {
+  margin-bottom: 15px;
+}
+
 .profileContentDiv__email {
   margin-bottom: 15px;
 }

@@ -12,6 +12,12 @@
   justify-content: center;
 }
 
+#createPostButtonDiv {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 2.5% 20px 0;
+}
+
 #createPostDiv {
   margin-bottom: 30px;
 }

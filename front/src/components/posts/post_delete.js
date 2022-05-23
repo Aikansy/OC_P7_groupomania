@@ -17,13 +17,23 @@ export const PostDelete = (props) => {
       },
     };
 
-    window.location = "/home";
-
     const URI = `http://localhost:4500/api/post/${post_id}`;
     await fetch(URI, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result.error) return console.log(result.error);
+        if (result.error) {
+          if (result.error.includes("Forbidden")) {
+            return alert("Vous ne pouvez modifier ce post !");
+          } else {
+            return console.log(result.error);
+          }
+        } else if (result.message) {
+          if (result.message.includes("deleted")) {
+            window.location = "/home";
+          } else {
+            console.log(result);
+          }
+        }
       })
       .catch((error) => console.log(error));
   };

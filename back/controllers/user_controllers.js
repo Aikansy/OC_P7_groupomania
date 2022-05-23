@@ -370,11 +370,19 @@ exports.deleteUser = async (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
 
     await User.destroy({ where: { _id: req.params.id } })
-      .then(() =>
-        res
-          .status(200)
-          .json({ message: "The account has been successfully deleted !" })
-      )
+      .then(() => {
+        if (user.role === "admin") {
+          res
+            .status(200)
+            .json({
+              message: "The account has been successfully deleted by Admin !",
+            });
+        } else {
+          res
+            .status(200)
+            .json({ message: "The account has been successfully deleted !" });
+        }
+      })
       .catch((error) => res.status(400).json({ error }));
   } else {
     return res.status(403).json({

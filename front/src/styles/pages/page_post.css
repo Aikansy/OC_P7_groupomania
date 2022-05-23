@@ -28,6 +28,8 @@
 }
 
 .articleTitleDiv__author {
+  font-size: 20px;
+  margin-bottom: 10px;
   transition: .3s;
   color: #AEAEB0;
 }
@@ -57,6 +59,7 @@
 
 .articleMessageDiv__message {
   font-style: italic;
+  margin-bottom: 10px;
 }
 
 .articleFooter {
@@ -118,6 +121,8 @@
 }
 
 .commentTitleDiv__author {
+  font-size: 20px;
+  margin-bottom: 10px;
   transition: .3s;
   color: #AEAEB0;
 }

@@ -43,7 +43,7 @@ export const CreateComment = (props) => {
   };
 
   return (
-    <form action="" onSubmit={handleModals} id="commentForm">
+    <form onSubmit={handleModals} id="commentForm">
       <div className="createCommentTitleDiv">
         <h3>POSTER UN COMMENTAIRE</h3>
       </div>

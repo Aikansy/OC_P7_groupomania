@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { GetSessionUserId } from "../../providers/providers";
+import { FormPostError } from "../../providers/providers";
 import "../../styles/components/posts/post_create.css";
 
 export const CreatePost = () => {
@@ -20,26 +21,28 @@ export const CreatePost = () => {
     formData.append("message", postMessage);
     formData.append("image", postImgUrl);
 
-    const requestOptions = {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: "Bearer " + sessionToken,
-      },
-    };
+    if (FormPostError() === false) {
+      const requestOptions = {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: "Bearer " + sessionToken,
+        },
+      };
 
-    const URI = `http://localhost:4500/api/post/`;
+      const URI = `http://localhost:4500/api/post/`;
 
-    await fetch(URI, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.error) return console.log(result.error);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      await fetch(URI, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) return console.log(result.error);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-    window.location.reload();
+      window.location.reload();
+    }
   };
 
   return (
@@ -83,7 +86,7 @@ export const CreatePost = () => {
       </div>
 
       <div className="createPostInputDiv">
-        <label htmlFor="postTitle" className="createPostInputDiv__label">
+        <label htmlFor="postMessage" className="createPostInputDiv__label">
           Message
         </label>
         <input

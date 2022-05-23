@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { GetSessionUserToken } from "../../providers/providers";
 import { UpdateSessionUserNickname } from "../../providers/providers";
+import { FormProfileError } from "../../providers/providers";
+import { UploadProfileImage } from "./profile_image";
 import "../../styles/components/profile/profile_update.css";
 
 export const ProfileUpdate = (props) => {
@@ -23,43 +25,47 @@ export const ProfileUpdate = (props) => {
       description: e.target.description.value,
     };
 
-    const sessionToken = GetSessionUserToken();
+    if (FormProfileError() === false) {
+      const sessionToken = GetSessionUserToken();
 
-    const requestOptions = {
-      method: "PUT",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionToken,
-      },
-    };
+      const requestOptions = {
+        method: "PUT",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionToken,
+        },
+      };
 
-    const URI = `http://localhost:4500/api/auth/${profile_id}`;
-    const response = await fetch(URI, requestOptions);
-    const result = await response.json();
+      const URI = `http://localhost:4500/api/auth/${profile_id}`;
+      const response = await fetch(URI, requestOptions);
+      const result = await response.json();
 
-    if (result.error) {
-      if (result.error.includes("Email")) {
-        emailError.textContent = "Email déjà utilisé";
+      if (result.error) {
+        if (result.error.includes("Email")) {
+          emailError.textContent = "Email déjà utilisé";
+        } else {
+          emailError.textContent = "";
+        }
+
+        if (result.error.includes("Forbidden")) {
+          return alert("Vous ne pouvez modifier ce compte !");
+        }
       } else {
-        emailError.textContent = "";
-      }
-
-      if (result.error.includes("Forbidden")) {
-        return alert("Vous ne pouvez modifier ce compte !");
-      }
-    } else {
-      if (user.nickname) {
-        UpdateSessionUserNickname(user.nickname);
-        window.location = `/profile/${user.nickname}/${profile_id}`;
-      } else {
-        window.location = `/profile/${profile_name}/${profile_id}`;
+        if (user.nickname) {
+          UpdateSessionUserNickname(user.nickname);
+          window.location = `/profile/${user.nickname}/${profile_id}`;
+        } else {
+          window.location = `/profile/${profile_name}/${profile_id}`;
+        }
       }
     }
   };
 
   return (
-    <form action="" onSubmit={handleModals} id="updateProfileForm">
+    <form onSubmit={handleModals} id="updateProfileForm">
+      <UploadProfileImage profile={props} />
+
       <div className="updateProfileTitleDiv">
         <h3>MODIFIER MON PROFIL</h3>
       </div>

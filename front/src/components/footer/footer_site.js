@@ -7,7 +7,7 @@ export const SiteFooter = () => {
     <footer id="signFooter">
       <div id="signFooterLinkDiv">
         <div className="signFooterAboutDiv">
-          <h4 className="signFooterAboutDiv__title">A propos</h4>
+          <h3 className="signFooterAboutDiv__title">A propos</h3>
           <nav>
             <ul>
               <li className="signFooterAboutDiv__li">
@@ -35,7 +35,7 @@ export const SiteFooter = () => {
           </nav>
         </div>
         <div className="signFooterHelpDiv">
-          <h4 className="signFooterHelpDiv__title">Assistance</h4>
+          <h3 className="signFooterHelpDiv__title">Assistance</h3>
           <nav>
             <ul>
               <li className="signFooterHelpDiv__li">

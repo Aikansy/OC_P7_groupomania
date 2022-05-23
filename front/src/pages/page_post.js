@@ -25,18 +25,39 @@ export const PagePost = () => {
 
   const handleModals = (e) => {
     if (e.target.id === "comment") {
-      setCreateCommentModal(true);
-      setUpdatePostModal(false);
-      setDeletePostModal(false);
+      if (createCommentModal === false) {
+        setCreateCommentModal(true);
+        setUpdatePostModal(false);
+        setDeletePostModal(false);
+      } else {
+        setCreateCommentModal(false);
+        setUpdatePostModal(false);
+        setDeletePostModal(false);
+      }
     }
+
     if (e.target.id === "update") {
-      setCreateCommentModal(false);
-      setUpdatePostModal(true);
-      setDeletePostModal(false);
-    } else if (e.target.id === "delete") {
-      setCreateCommentModal(false);
-      setUpdatePostModal(false);
-      setDeletePostModal(true);
+      if (updatePostModal === false) {
+        setCreateCommentModal(false);
+        setUpdatePostModal(true);
+        setDeletePostModal(false);
+      } else {
+        setCreateCommentModal(false);
+        setUpdatePostModal(false);
+        setDeletePostModal(false);
+      }
+    }
+
+    if (e.target.id === "delete") {
+      if (deletePostModal === false) {
+        setCreateCommentModal(false);
+        setUpdatePostModal(false);
+        setDeletePostModal(true);
+      } else {
+        setCreateCommentModal(false);
+        setUpdatePostModal(false);
+        setDeletePostModal(false);
+      }
     }
   };
 
@@ -69,7 +90,7 @@ export const PagePost = () => {
     fetch(`http://localhost:4500/api/post/${id}/comment`, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        setCommentsModal(result.comments.reverse());
+        setCommentsModal(result.comments);
       })
       .catch((error) => {
         console.log(error);
@@ -98,8 +119,12 @@ export const PagePost = () => {
             </NavLink>
           </div>
 
-          <div>
-            <UpdatePostImage post={post} />
+          <div className="articleImageDiv">
+            <img
+              src={require(`../uploads/posts/user_${post.creator_id}/${post.imgUrl}`)}
+              alt={post.title}
+              className="articleImageDiv__image"
+            ></img>
           </div>
 
           <div className="articleMessageDiv">

@@ -34,13 +34,13 @@ export const LikeUnlike = (props) => {
 
   if (initalLikeModal) {
     return (
-      <button onClick={handleModals} id="likesButton">
+      <button onClick={handleModals} className="likesButton">
         Likes {post_likes}
       </button>
     );
   } else {
     return (
-      <button onClick={handleModals} id="likesButton">
+      <button onClick={handleModals} className="likesButton">
         Likes {likeModal}
       </button>
     );

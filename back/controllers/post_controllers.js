@@ -168,13 +168,6 @@ exports.deletePost = async (req, res, next) => {
   if (!post) return res.status(404).json({ error: "Post not found !" });
 
   if (user.role === "admin" || user._id == post.creator_id) {
-    if (post.imgUrl) {
-      const postImageDir = `../front/src/uploads/posts/user_${post.creator_id}`;
-      fs.unlink(`${postImageDir}/${post.imgUrl}`, function (error) {
-        if (error) throw error;
-      });
-    }
-
     await Comment.findAll({ where: { post_id: req.params.id } })
       .then((comments) => {
         if (comments) {
@@ -187,9 +180,19 @@ exports.deletePost = async (req, res, next) => {
       .then((posts) => {
         if (posts) {
           Post.destroy({ where: { _id: req.params.id } });
+          res
+            .status(200)
+            .json({ message: "This post has been successfully deleted" });
         }
       })
       .catch((error) => res.status(400).json({ error }));
+
+    if (post.imgUrl) {
+      const postImageDir = `../front/src/uploads/posts/user_${post.creator_id}`;
+      fs.unlink(`${postImageDir}/${post.imgUrl}`, function (error) {
+        if (error) throw error;
+      });
+    }
   } else {
     return res
       .status(403)
