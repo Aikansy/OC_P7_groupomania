@@ -261,7 +261,6 @@ exports.createComment = async (req, res, next) => {
     postCreator_id: post.creator_id,
     commentator_id: user._id,
     commentator: user.nickname,
-    title: req.body.title,
     content: req.body.content,
   };
 

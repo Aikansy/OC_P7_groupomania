@@ -58,7 +58,7 @@ export const PageHome = () => {
     return (
       <section id="trendingSection">
         <div id="trendingTitleDiv">
-          <h2 className="groupixColor">TRENDING</h2>
+          <h2 className="groupixColor">FRESH</h2>
         </div>
 
         <div id="createPostButtonDiv">

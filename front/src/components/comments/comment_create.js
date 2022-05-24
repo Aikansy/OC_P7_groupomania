@@ -4,7 +4,6 @@ import { FormCommentError } from "../../providers/providers";
 import "../../styles/components/comments/comment_create.css";
 
 export const CreateComment = (props) => {
-  const [commentTitle, setCommentTitle] = useState("");
   const [commentContent, setCommentContent] = useState("");
 
   const post_id = parseInt(props.post_id);
@@ -13,7 +12,6 @@ export const CreateComment = (props) => {
     e.preventDefault();
 
     const comment = {
-      title: e.target.commentTitle.value,
       content: e.target.commentContent.value,
     };
 
@@ -46,22 +44,6 @@ export const CreateComment = (props) => {
     <form onSubmit={handleModals} id="commentForm">
       <div className="createCommentTitleDiv">
         <h3>POSTER UN COMMENTAIRE</h3>
-      </div>
-
-      <div className="createCommentInputDiv">
-        <label htmlFor="commentTitle" className="createCommentInputDiv__label">
-          Titre
-        </label>
-        <input
-          type="text"
-          name="commentTitle"
-          id="commentTitle"
-          className="createCommentInputDiv__input"
-          onChange={(e) => setCommentTitle(e.target.value)}
-          value={commentTitle}
-          required
-        />
-        <p id="commentTitleErrorMsg"></p>
       </div>
 
       <div className="createCommentInputDiv">

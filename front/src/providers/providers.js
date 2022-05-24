@@ -197,20 +197,11 @@ export const FormPostError = () => {
 };
 
 export const FormCommentError = () => {
-  const title = document.querySelector("#commentTitle").value;
   const content = document.querySelector("#commentContent").value;
 
-  const titleError = document.querySelector("#commentTitleErrorMsg");
   const contentError = document.querySelector("#commentContentErrorMsg");
 
   let error = false;
-
-  if (!title.match(/^[\dA-Za-zÜ-ü"'/#.\s?!)(-]{2,100}$/)) {
-    titleError.textContent = `Caractères acceptés : min: 2, max: 100, chiffres, lettres majuscules et minuscules, accents, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;
-    error = true;
-  } else {
-    titleError.textContent = "";
-  }
 
   if (!content.match(/^[\dA-Za-zÜ-ü,:"'/#.\s?!)(-]{2,280}$/)) {
     contentError.textContent = `Caractères acceptés : min: 2, max: 280, chiffres, lettres majuscules et minuscules, accents, virgule, double-point, apostrophe, guillemet, slash, dièze, point, point d'interrogation et exclamation, parenthèses, espace et tiret`;

@@ -17,6 +17,12 @@
   border-radius: 25px;
   padding: 20px;
   margin-bottom: 30px;
+  transition: .3s;
+}
+
+.postArticle:hover {
+  transition: .3s;
+  background: #07111f;
 }
 
 .articleTitleDiv {
@@ -112,12 +118,18 @@
   padding: 20px;
   margin: 30px 0;
   color: #fff;
+  transition: .3s;
+}
+
+.comment:hover {
+  transition: .3s;
+  background: #07111f;
 }
 
 .commentTitleDiv {
   display: flex;
   flex-direction: column;
-  min-height: 70px;
+  min-height: 30px;
 }
 
 .commentTitleDiv__author {
@@ -130,10 +142,6 @@
 .commentTitleDiv__author:hover {
   transition: .3s;
   color: #fff;
-}
-
-.commentTitleDiv__title {
-  font-size: 25px;
 }
 
 .commentContentDiv {

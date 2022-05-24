@@ -9,7 +9,7 @@ export const LikeUnlike = (props) => {
   const post_likes = props.post.likes;
 
   const handleModals = async (e) => {
-    if (e.target.id === "likesButton") {
+    if (e.target.className === "likesButton") {
       setInitialLikeModal(false);
     }
 

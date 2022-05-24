@@ -27,6 +27,12 @@
   border-radius: 25px;
   padding: 20px;
   margin-bottom: 30px;
+  transition: .3s;
+}
+
+.postArticle:hover {
+  transition: .3s;
+  background: #07111f;
 }
 
 .articleTitleDiv {
