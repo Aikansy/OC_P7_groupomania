@@ -4,15 +4,15 @@
 
 ## RUN THE PROJECT LOCALLY
 
-> Clone the project:
+#### Clone the project:
 
 ```bash
 git clone https://github.com/Aikansy/OC_P7
 ```
 
-#### BACK-END
+#### BACK-END PROCEDURE
 
-> Install dependencies
+#### Install dependencies
 
 go to **project directory/back folder**
 
@@ -20,7 +20,7 @@ go to **project directory/back folder**
   npm install
 ```
 
-> Create needed file(s)
+#### Create needed file(s)
 
 Create **config.env** file in **back/config/** with in it:
 
@@ -34,7 +34,7 @@ RANDOM_TOKEN_SECRET=<your secret string>
 ROLE_TOKEN=<element to include in the password during registration to allocate the admin role>
 ```
 
-> Start the back-end server
+#### Start the back-end server
 
 go to **project directory/back folder**
 
@@ -42,9 +42,9 @@ go to **project directory/back folder**
   nodemon server
 ```
 
-#### FRONT-END
+#### FRONT-END PROCEDURE
 
-> Start the front-end server
+#### Start the front-end server
 
 go to **project directory/front folder**
 
