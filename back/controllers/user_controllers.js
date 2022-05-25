@@ -372,11 +372,9 @@ exports.deleteUser = async (req, res, next) => {
     await User.destroy({ where: { _id: req.params.id } })
       .then(() => {
         if (user.role === "admin") {
-          res
-            .status(200)
-            .json({
-              message: "The account has been successfully deleted by Admin !",
-            });
+          res.status(200).json({
+            message: "The account has been successfully deleted by Admin !",
+          });
         } else {
           res
             .status(200)

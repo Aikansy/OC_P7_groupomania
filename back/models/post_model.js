@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
     },
     message: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     likes: {
       type: DataTypes.INTEGER,

@@ -35,12 +35,12 @@ export const ProfileDelete = (props) => {
   return (
     <div id="deleteProfileForm">
       <div className="deleteProfileTitleDiv">
-        <h3>Supprimer mon profil</h3>
+        <h3>SUPPRIMER LE PROFIL</h3>
       </div>
 
       <p className="deleteProfileMessageDiv">
-        Êtes-vous sûr de vouloir supprimer votre compte ? L'ensemble de vos
-        posts et commentaires seront également supprimer.
+        Êtes-vous sûr de vouloir supprimer ce compte ? L'ensemble de ses
+        informations, posts et commentaires seront également supprimés.
       </p>
 
       <div className="deleteProfileButtonDiv">

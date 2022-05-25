@@ -45,11 +45,8 @@ export const ProfileUpdate = (props) => {
         if (result.error.includes("Email")) {
           emailError.textContent = "Email déjà utilisé";
         } else {
+          console.log(result.error);
           emailError.textContent = "";
-        }
-
-        if (result.error.includes("Forbidden")) {
-          return alert("Vous ne pouvez modifier ce compte !");
         }
       } else {
         if (user.nickname) {
@@ -67,7 +64,7 @@ export const ProfileUpdate = (props) => {
       <UploadProfileImage profile={props} />
 
       <div className="updateProfileTitleDiv">
-        <h3>MODIFIER MON PROFIL</h3>
+        <h3>MODIFIER LE PROFIL</h3>
       </div>
 
       <div className="updateProfileInputDiv">
